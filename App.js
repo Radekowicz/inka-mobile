@@ -20,7 +20,7 @@ function MakeAppointmentScreen() {
 function MyAppointmentsScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
+      <Text>Moje wizyty</Text>
     </View>
   );
 }
@@ -28,7 +28,7 @@ function MyAppointmentsScreen() {
 function PatientScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>pateint!</Text>
+      <Text>Pacjent</Text>
     </View>
   );
 }
@@ -59,7 +59,7 @@ export default function App() {
           },
         })}
         tabBarOptions={{
-          activeTintColor: 'indigo',
+          activeTintColor: '#5856D6',
           inactiveTintColor: 'gray',
         }}
       >

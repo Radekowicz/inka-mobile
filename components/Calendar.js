@@ -4,9 +4,6 @@ import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import {LocaleConfig} from 'react-native-calendars';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TimelineCalendarScreen from './TimelineCalendarScreen';
-import HorizontalCalendarList from './HorizontalCalendarList';
-import AgendaScreen from './Agenda'
-import CalendarsScreen from './Calendars'
 
 
 LocaleConfig.locales['pl'] = {

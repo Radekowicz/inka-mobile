@@ -14,7 +14,7 @@ import {
   CalendarProvider
 } from 'react-native-calendars';
 import moment from 'moment';
-import Visits from './VisitElement'
+import AvailableHours from './AvailableHours'
 
 
 export default class TimelineCalendarScreen extends Component {
@@ -25,43 +25,13 @@ export default class TimelineCalendarScreen extends Component {
   onDateChanged = (date) => {
     // console.warn('ExpandableCalendarScreen onDateChanged: ', date, updateSource);
     // fetch and set data for date + week ahead
+    console.log(date)
     this.setState({currentDate: date});
   };
 
-  onMonthChange = (/* month, updateSource */) => {
-    // console.warn('ExpandableCalendarScreen onMonthChange: ', month, updateSource);
-  };
-
-  renderEmptyItem() {
-    return (
-      <View style={styles.emptyItem}>
-        <Text style={styles.emptyItemText}>No Events Planned</Text>
-      </View>
-    );
-  }
-
-  renderItem = ({item}) => {
-    if (_.isEmpty(item)) {
-      return this.renderEmptyItem();
-    }
-
-    return (
-      <TouchableOpacity
-        style={styles.item}>
-        <View>
-          <Text style={styles.itemHourText}>{item.hour}</Text>
-          <Text style={styles.itemDurationText}>{item.duration}</Text>
-        </View>
-        <Text style={styles.itemTitleText}>{item.title}</Text>
-        <View style={styles.itemButtonContainer}>
-          <Button title={'Info'}/>
-        </View>
-      </TouchableOpacity>
-    );
-  };
 
   getTheme = () => {
-    const themeColor = '#0059ff';
+    const themeColor = "#5856D6";
     const lightThemeColor = '#e6efff';
     const disabledColor = '#a6acb1';
     const black = '#20303c';
@@ -109,7 +79,6 @@ export default class TimelineCalendarScreen extends Component {
       // date={ITEMS[0].title}
         date={this.state.currentDate}
         onDateChanged={this.onDateChanged}
-        onMonthChange={this.onMonthChange}
         theme={{todayButtonTextColor: '#0059ff'}}
         //showTodayButton
         disabledOpacity={0.6}
@@ -118,8 +87,8 @@ export default class TimelineCalendarScreen extends Component {
         <ExpandableCalendar
           // horizontal={false}
           // hideArrows
-          // disablePan
-          // hideKnob
+          disablePan
+          hideKnob
           initialPosition={ExpandableCalendar.positions.OPEN}
           // markedDates={this.getMarkedDates()} // {'2019-06-01': {marked: true}, '2019-06-02': {marked: true}, '2019-06-03': {marked: true}};
           // markedDates={() => {}} // {'2019-06-01': {marked: true}, '2019-06-02': {marked: true}, '2019-06-03': {marked: true}};
@@ -128,12 +97,22 @@ export default class TimelineCalendarScreen extends Component {
           // headerStyle={styles.calendar} // for horizontal only
           // disableWeekScroll
         />
-        <Visits/>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>Dostępne godziny</Text>
+          <TouchableOpacity
+          style={styles.nextBtn}
+        >
+          <Text style={styles.nextBtnText}>Dalej</Text>
+        </TouchableOpacity>
+        </View>
+        <AvailableHours/>
 
       </CalendarProvider>
     );
   }
 }
+
+const themeColor = "#5856D6"
 
 const styles = StyleSheet.create({
   calendar: {
@@ -144,41 +123,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f4f7',
     color: '#79838a'
   },
-  item: {
-    padding: 20,
-    backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e8ecf0',
-    flexDirection: 'row'
+  text: {
+    fontSize: 23,
   },
-  itemHourText: {
-    color: 'black'
+  nextBtn: {
+    marginRight: 30,
   },
-  itemDurationText: {
-    color: 'grey',
-    fontSize: 12,
-    marginTop: 4,
-    marginLeft: 4
+  nextBtnText: {
+    fontSize: 23,
+    color: themeColor
   },
-  itemTitleText: {
-    color: 'black',
-    marginLeft: 16,
-    fontWeight: 'bold',
-    fontSize: 16
-  },
-  itemButtonContainer: {
-    flex: 1,
-    alignItems: 'flex-end'
-  },
-  emptyItem: {
-    paddingLeft: 20,
-    height: 52,
-    justifyContent: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e8ecf0'
-  },
-  emptyItemText: {
-    color: '#79838a',
-    fontSize: 14
+  textContainer: {
+    marginTop: 10,
+    marginLeft: 30,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
 });
