@@ -7,6 +7,10 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight, F
     { key: '12:30' }, { key: '13:15' }, { key: '14:00' }, { key: '14:45' }, { key: '15:45' }, 
     { key: '16:30' }, { key: '18:00' },
   ];
+
+  const getData = (markedItem) => {
+    return data.map(item => ({...item, marked: markedItem?.key === item.key}))
+  }
   
   const formatData = (data, numColumns) => {
     const numberOfFullRows = Math.floor(data.length / numColumns);
@@ -56,7 +60,7 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight, F
           onPress={() => {
             this.onPress(item)
           }}
-          style={item === this.state.markedItem ? styles.markedItem : styles.item} //wtf does not work
+          style={item.marked ? styles.markedItem : styles.item} //wtf does not work
         >
           <Text style={styles.itemText}>{item.key}</Text>
         </TouchableOpacity>
@@ -66,7 +70,7 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight, F
     render() {
       return (
         <FlatList
-          data={formatData(data, numColumns)}
+          data={formatData(getData(this.state.markedItem), numColumns)}
           style={styles.container}
           renderItem={this.renderItem}
           numColumns={numColumns}
