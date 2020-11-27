@@ -29,7 +29,7 @@ function Detalis() {
   }
 
 
-export default function VisitDetailsScreen() {
+export default function VisitDetails() {
     return (
       <SafeAreaView>
         <Text style={styles.title}>Twoja wizyta</Text>
