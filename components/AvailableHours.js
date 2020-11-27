@@ -62,7 +62,7 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight, F
           }}
           style={item.marked ? styles.markedItem : styles.item} //wtf does not work
         >
-          <Text style={styles.itemText}>{item.key}</Text>
+          <Text style={item.marked ? styles.markedItemText : styles.itemText}>{item.key}</Text>
         </TouchableOpacity>
       );
     };
@@ -90,10 +90,8 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight, F
     },
     item: {
       backgroundColor: '#fff',
-      color: themeColor,
       alignItems: 'center',
       justifyContent: 'center',
-      //flex: 1,
       margin: 10,
       width: Dimensions.get('window').width / numColumns - 30,
       height: 50,
@@ -104,17 +102,13 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight, F
       //height: Dimensions.get('window').width / numColumns, // approximate a square
     },
     markedItem: {
-      backgroundColor: '#fff',
-      color: themeColor,
+      backgroundColor: themeColor,
       alignItems: 'center',
       justifyContent: 'center',
-      //flex: 1,
       margin: 10,
       width: Dimensions.get('window').width / numColumns - 30,
       height: 50,
       borderRadius: 90,
-      borderColor: "pink",
-      borderWidth: 10
     },
     itemInvisible: {
       backgroundColor: 'transparent',
@@ -123,4 +117,8 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight, F
       color: themeColor,
       fontSize: 15
     },
+    markedItemText: {
+      color: '#fff',
+      fontSize: 15
+    }
   });

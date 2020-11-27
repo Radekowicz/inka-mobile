@@ -10,12 +10,25 @@ import {
 } from 'react-native';
 import {
   ExpandableCalendar,
-  Timeline,
   CalendarProvider
 } from 'react-native-calendars';
 import moment from 'moment';
 import AvailableHours from './AvailableHours'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import {LocaleConfig} from 'react-native-calendars';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+const Stack = createStackNavigator();
+
+LocaleConfig.locales['pl'] = {
+  monthNames: ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'],
+  monthNamesShort: ['St','Lut','Mar','Kw','Maj','Cz','Lip','Sier','Wrz','Paź','Lis','Gr'],
+  dayNames: ['Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota','Niedziela'],
+  dayNamesShort: ['Pon.','Wt.','Śr.','Czw.','Pt.','Sob.','Niedz.'],
+  today: 'Dzisiaj'
+};
+LocaleConfig.defaultLocale = 'pl';
 
 export default class TimelineCalendarScreen extends Component {
   state = {
@@ -75,39 +88,42 @@ export default class TimelineCalendarScreen extends Component {
 
   render() {
     return (
-      <CalendarProvider
-      // date={ITEMS[0].title}
-        date={this.state.currentDate}
-        onDateChanged={this.onDateChanged}
-        theme={{todayButtonTextColor: '#0059ff'}}
-        //showTodayButton
-        disabledOpacity={0.6}
-        //todayBottomMargin={16}
-      >
-        <ExpandableCalendar
-          // horizontal={false}
-          // hideArrows
-          disablePan
-          hideKnob
-          initialPosition={ExpandableCalendar.positions.OPEN}
-          // markedDates={this.getMarkedDates()} // {'2019-06-01': {marked: true}, '2019-06-02': {marked: true}, '2019-06-03': {marked: true}};
-          // markedDates={() => {}} // {'2019-06-01': {marked: true}, '2019-06-02': {marked: true}, '2019-06-03': {marked: true}};
-          theme={this.getTheme()}
-          calendarStyle={styles.calendar}
-          // headerStyle={styles.calendar} // for horizontal only
-          // disableWeekScroll
-        />
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>Dostępne godziny</Text>
-          <TouchableOpacity
-          style={styles.nextBtn}
+      <SafeAreaView>
+        <CalendarProvider
+        // date={ITEMS[0].title}
+          date={this.state.currentDate}
+          onDateChanged={this.onDateChanged}
+          theme={{todayButtonTextColor: '#0059ff'}}
+          //showTodayButton
+          disabledOpacity={0.6}
+          //todayBottomMargin={16}
         >
-          <Text style={styles.nextBtnText}>Dalej</Text>
-        </TouchableOpacity>
-        </View>
-        <AvailableHours/>
+          <ExpandableCalendar
+            // horizontal={false}
+            // hideArrows
+            disablePan
+            hideKnob
+            initialPosition={ExpandableCalendar.positions.OPEN}
+            // markedDates={this.getMarkedDates()} // {'2019-06-01': {marked: true}, '2019-06-02': {marked: true}, '2019-06-03': {marked: true}};
+            // markedDates={() => {}} // {'2019-06-01': {marked: true}, '2019-06-02': {marked: true}, '2019-06-03': {marked: true}};
+            theme={this.getTheme()}
+            calendarStyle={styles.calendar}
+            // headerStyle={styles.calendar} // for horizontal only
+            // disableWeekScroll
+          />
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>Dostępne godziny</Text>
+            <TouchableOpacity
+            style={styles.nextBtn}
+          >
+            <Text style={styles.nextBtnText}>Dalej</Text>
+          </TouchableOpacity>
+          </View>
+          <AvailableHours/>
 
-      </CalendarProvider>
+        </CalendarProvider>
+      </SafeAreaView>
+
     );
   }
 }

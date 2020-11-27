@@ -5,14 +5,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import MyCalendar from './components/Calendar'
+import CalendarScreen from './components/CalendarScreen'
+import VisitDetailsScreen from './components/VisitDetailsScreen'
 
 
 
 function MakeAppointmentScreen() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <MyCalendar />
+      <CalendarScreen />
     </View>
   );
 }
@@ -20,7 +21,7 @@ function MakeAppointmentScreen() {
 function MyAppointmentsScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Moje wizyty</Text>
+      <VisitDetailsScreen/>
     </View>
   );
 }
@@ -33,7 +34,6 @@ function PatientScreen() {
   );
 }
 
-const Stack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
@@ -70,8 +70,6 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-
 
 
 const styles = StyleSheet.create({
