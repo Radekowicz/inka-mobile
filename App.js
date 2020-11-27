@@ -7,14 +7,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import CalendarScreen from './components/CalendarScreen'
 import VisitDetails from './components/VisitDetails'
+import Calendar from './components/Calendar' 
 
 
+const Stack = createStackNavigator();
 
 function MakeAppointmentScreen() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <CalendarScreen />
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name="ChooseAppointment" component={Calendar} />
+      <Stack.Screen name="VisitDetails" component={VisitDetails} />
+    </Stack.Navigator>
   );
 }
 

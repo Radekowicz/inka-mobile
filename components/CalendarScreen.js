@@ -25,7 +25,6 @@ function VisitDetailsScreen({ navigation }) {
   );
 }
 
-
 const Stack = createStackNavigator();
 
 export default function CalendarScreen() {
