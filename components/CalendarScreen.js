@@ -12,7 +12,7 @@ import VisitDetails from './VisitDetails'
 function ChooseAppointmentScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Calendar />
+      <Calendar navigation={navigation}/>
     </View>
   );
 }
@@ -29,9 +29,13 @@ const Stack = createStackNavigator();
 
 export default function CalendarScreen() {
   return (
-    <Stack.Navigator>
-            <Stack.Screen name="ChooseAppointment" component={ChooseAppointmentScreen} />
-            <Stack.Screen name="VisitDetails" component={VisitDetailsScreen} />
+    <Stack.Navigator   screenOptions={{headerShown: true}}>
+      <Stack.Screen 
+      name="ChooseAppointment" 
+      component={ChooseAppointmentScreen} 
+      options={{headerShown: false}}/>
+      <Stack.Screen name="VisitDetails" component={VisitDetailsScreen} />
     </Stack.Navigator>
   );
+  
 }

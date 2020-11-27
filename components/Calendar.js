@@ -115,7 +115,8 @@ export default class TimelineCalendarScreen extends Component {
             <Text style={styles.text}>Dostępne godziny</Text>
             <TouchableOpacity
             style={styles.nextBtn}
-          >
+            onPress={() => this.props.navigation.navigate('VisitDetails')}
+            >
             <Text style={styles.nextBtnText}>Dalej</Text>
           </TouchableOpacity>
           </View>

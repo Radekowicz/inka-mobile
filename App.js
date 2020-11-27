@@ -14,10 +14,7 @@ const Stack = createStackNavigator();
 
 function MakeAppointmentScreen() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="ChooseAppointment" component={Calendar} />
-      <Stack.Screen name="VisitDetails" component={VisitDetails} />
-    </Stack.Navigator>
+    <CalendarScreen/>
   );
 }
 
@@ -77,7 +74,7 @@ export default function App() {
         }}
       >
         <Tab.Screen name="Umów wizytę" component={MakeAppointmentScreen} />
-        <Tab.Screen name="Moje wizyty" component={dupa} />
+        <Tab.Screen name="Moje wizyty" component={MyAppointmentsScreen} />
         <Tab.Screen name="Pacjent" component={PatientScreen} />
       </Tab.Navigator>
     </NavigationContainer>

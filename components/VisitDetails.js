@@ -48,7 +48,7 @@ export default function VisitDetails() {
         backgroundColor: "#fff",
         flex: 1, 
         alignItems: 'center',
-        marginBottom: 70,
+        marginBottom: 50,
         marginTop: 20,
         width: 300,
         justifyContent:'space-between',
@@ -78,7 +78,7 @@ export default function VisitDetails() {
     title: {
         fontSize: 22,
         fontWeight: "700",
-        marginTop: 40
+        marginTop: 5
     },
     bookButton: {
         backgroundColor: themeColor,
