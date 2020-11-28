@@ -18,8 +18,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {LocaleConfig} from 'react-native-calendars';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { VisitContext } from '../contexts/VisitContext';
 
-const Stack = createStackNavigator();
 
 LocaleConfig.locales['pl'] = {
   monthNames: ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'],
@@ -34,10 +34,12 @@ export default class TimelineCalendarScreen extends Component {
   state = {
     currentDate: '2020-11-15'
   }
+
+  static contextType = VisitContext
   
   onDateChanged = (date) => {
-    // console.warn('ExpandableCalendarScreen onDateChanged: ', date, updateSource);
-    // fetch and set data for date + week ahead
+    const { setDate } = this.context
+    setDate(date)
     console.log(date)
     this.setState({currentDate: date});
   };

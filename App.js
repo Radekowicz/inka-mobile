@@ -7,12 +7,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import CalendarScreen from './components/CalendarScreen'
 import VisitDetails from './components/VisitDetails'
-import Calendar from './components/Calendar' 
+import VisitContextProvider from './contexts/VisitContext'
 
 
-const Stack = createStackNavigator();
 
-function MakeAppointmentScreen() {
+function MakeCalendarScreen() {
   return (
     <CalendarScreen/>
   );
@@ -22,7 +21,7 @@ function MakeAppointmentScreen() {
 function MyAppointmentsScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <VisitDetails/>
+      <Text>dupa</Text>
     </View>
     
   );
@@ -36,21 +35,15 @@ function PatientScreen() {
   );
 }
 
-function dupa() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Pacjent</Text>
-    </View>
-  );
-}
 
 const Tab = createBottomTabNavigator();
 
 
 export default function App() {
   return (
+
     <NavigationContainer>
-    
+
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
@@ -73,7 +66,7 @@ export default function App() {
           inactiveTintColor: 'gray',
         }}
       >
-        <Tab.Screen name="Umów wizytę" component={MakeAppointmentScreen} />
+        <Tab.Screen name="Umów wizytę" component={MakeCalendarScreen} />
         <Tab.Screen name="Moje wizyty" component={MyAppointmentsScreen} />
         <Tab.Screen name="Pacjent" component={PatientScreen} />
       </Tab.Navigator>

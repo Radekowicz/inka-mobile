@@ -5,11 +5,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Calendar from './Calendar'
 import VisitDetails from './VisitDetails'
+import VisitContextProvider from '../contexts/VisitContext'
 
 
 
 
-function ChooseAppointmentScreen({ navigation }) {
+function MakeCalendar({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Calendar navigation={navigation}/>
@@ -17,7 +18,7 @@ function ChooseAppointmentScreen({ navigation }) {
   );
 }
 
-function VisitDetailsScreen({ navigation }) {
+function MakeVisitDetails({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <VisitDetails />
@@ -29,13 +30,16 @@ const Stack = createStackNavigator();
 
 export default function CalendarScreen() {
   return (
-    <Stack.Navigator   screenOptions={{headerShown: true}}>
-      <Stack.Screen 
-      name="ChooseAppointment" 
-      component={ChooseAppointmentScreen} 
-      options={{headerShown: false}}/>
-      <Stack.Screen name="VisitDetails" component={VisitDetailsScreen} />
-    </Stack.Navigator>
+    <VisitContextProvider>
+      <Stack.Navigator   screenOptions={{headerShown: true}}>
+        <Stack.Screen 
+        name="ChooseAppointment" 
+        component={MakeCalendar} 
+        options={{headerShown: false}}/>
+        <Stack.Screen name="VisitDetails" component={MakeVisitDetails} />
+      </Stack.Navigator>
+    </VisitContextProvider>
+
   );
   
 }

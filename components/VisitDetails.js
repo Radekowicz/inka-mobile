@@ -1,45 +1,55 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import VisitContextProvider from '../contexts/VisitContext'
+import { VisitContext } from '../contexts/VisitContext';
+import dayjs from 'dayjs'
+import pl from 'dayjs/locale/pl';
 
+  export default class VisitDetails extends React.Component {
 
+    static contextType = VisitContext;
 
-function Detalis() {
-    return (
-      <View style={styles.details}>
-          <View styles={styles.detail}>
-              <Text style={styles.topText}>Rodzaj wizyty</Text>
-              <Text style={styles.mainText}>Wizyta kontrolna z aparatem stałym</Text>
-          </View>
-          <View styles={styles.detail}>
-              <Text style={styles.topText}>Data i godzina</Text>
-              <Text style={styles.mainText}>Środa, 3 Wrzesień</Text>
-              <Text style={styles.bottomText}>9:15</Text>
-          </View>
-          <View styles={styles.detail}>
-              <Text style={styles.topText}>Cena za wizytę</Text>
-              <Text style={styles.mainText}>280 zł</Text>
-          </View>
-          <View styles={styles.detail}>
-              <Text style={styles.topText}>Zaliczka</Text>
-              <Text style={styles.mainText}>50 zł</Text>
-          </View>
-      </View>
-    );
+    render() {
+        const {time, date} = this.context
+
+        
+
+        var customParseFormat = require('dayjs/plugin/customParseFormat')
+        require('dayjs/locale/pl')
+        dayjs.extend(customParseFormat)
+        const formatedDate = dayjs(date, "YYYY-MM-DD", pl).format("dddd, DD MMMM")
+
+        return (
+            <SafeAreaView>
+                <Text style={styles.title}>Twoja wizyta</Text>
+                <View style={styles.details}>
+                    <View styles={styles.detail}>
+                        <Text style={styles.topText}>Rodzaj wizyty</Text>
+                        <Text style={styles.mainText}>Wizyta kontrolna z aparatem stałym</Text>
+                    </View>
+                    <View styles={styles.detail}>
+                        <Text style={styles.topText}>Data i godzina</Text>
+                        <Text style={styles.mainText}>{formatedDate}</Text>
+                        <Text style={styles.bottomText}>{time}</Text>
+                    </View>
+                    <View styles={styles.detail}>
+                        <Text style={styles.topText}>Cena za wizytę</Text>
+                        <Text style={styles.mainText}>280 zł</Text>
+                    </View>
+                    <View styles={styles.detail}>
+                        <Text style={styles.topText}>Zaliczka</Text>
+                        <Text style={styles.mainText}>50 zł</Text>
+                    </View>
+                </View>
+                <TouchableOpacity style={styles.bookButton}>
+                    <Text style={styles.bookButtonText}>Rezerwuj</Text>
+                </TouchableOpacity>
+            </SafeAreaView>
+        );
+    }
   }
 
-
-export default function VisitDetails() {
-    return (
-      <SafeAreaView>
-        <Text style={styles.title}>Twoja wizyta</Text>
-        <Detalis/>
-        <TouchableOpacity style={styles.bookButton}>
-            <Text style={styles.bookButtonText}>Rezerwuj</Text>
-        </TouchableOpacity>
-      </SafeAreaView>
-    );
-  }
 
   const themeColor = "#5856D6"
 
