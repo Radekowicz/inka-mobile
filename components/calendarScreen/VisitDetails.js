@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import VisitContextProvider from '../contexts/VisitContext'
-import { VisitContext } from '../contexts/VisitContext';
+import VisitContextProvider from '../../contexts/VisitContext'
+import { VisitContext } from '../../contexts/VisitContext';
 import dayjs from 'dayjs'
 import pl from 'dayjs/locale/pl';
 

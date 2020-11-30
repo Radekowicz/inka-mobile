@@ -1,11 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Calendar from './Calendar'
 import VisitDetails from './VisitDetails'
-import VisitContextProvider from '../contexts/VisitContext'
+import VisitContextProvider from '../../contexts/VisitContext'
 
 
 
@@ -39,7 +37,5 @@ export default function CalendarScreen() {
         <Stack.Screen name="VisitDetails" component={MakeVisitDetails} />
       </Stack.Navigator>
     </VisitContextProvider>
-
   );
-  
 }

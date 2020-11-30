@@ -5,9 +5,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import CalendarScreen from './components/CalendarScreen'
-import VisitDetails from './components/VisitDetails'
+import CalendarScreen from './components/calendarScreen/CalendarScreen'
+import VisitDetails from './components/calendarScreen/VisitDetails'
 import VisitContextProvider from './contexts/VisitContext'
+import MyVisitsScreen from './components/myVisitsScreen/MyVisitsScreen'
+
 
 
 
@@ -21,7 +23,7 @@ function MakeCalendarScreen() {
 function MyAppointmentsScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>dupa</Text>
+      <MyVisitsScreen/>
     </View>
     
   );
@@ -43,7 +45,6 @@ export default function App() {
   return (
 
     <NavigationContainer>
-
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {

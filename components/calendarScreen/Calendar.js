@@ -18,7 +18,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {LocaleConfig} from 'react-native-calendars';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { VisitContext } from '../contexts/VisitContext';
+import { VisitContext } from '../../contexts/VisitContext';
 
 
 LocaleConfig.locales['pl'] = {

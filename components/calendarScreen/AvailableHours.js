@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight, FlatList, Dimensions} from 'react-native';
-import { VisitContext } from '../contexts/VisitContext';
+import { VisitContext } from '../../contexts/VisitContext';
 
 
 
