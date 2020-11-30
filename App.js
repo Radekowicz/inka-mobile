@@ -9,7 +9,7 @@ import CalendarScreen from './components/calendarScreen/CalendarScreen'
 import VisitDetails from './components/calendarScreen/VisitDetails'
 import VisitContextProvider from './contexts/VisitContext'
 import MyVisitsScreen from './components/myVisitsScreen/MyVisitsScreen'
-
+import PatientScreen from './components/patientScreen/PatientScreen'
 
 
 
@@ -29,10 +29,10 @@ function MyAppointmentsScreen() {
   );
 }
 
-function PatientScreen() {
+function MakePatientScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Pacjent</Text>
+      <PatientScreen/>
     </View>
   );
 }
@@ -69,7 +69,7 @@ export default function App() {
       >
         <Tab.Screen name="Umów wizytę" component={MakeCalendarScreen} />
         <Tab.Screen name="Moje wizyty" component={MyAppointmentsScreen} />
-        <Tab.Screen name="Pacjent" component={PatientScreen} />
+        <Tab.Screen name="Pacjent" component={MakePatientScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
