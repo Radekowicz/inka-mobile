@@ -35,8 +35,7 @@ const styles = StyleSheet.create({
         width: '100%', 
         height: undefined, 
         aspectRatio: 2,
-        borderTopStartRadius: 20,
-        borderTopEndRadius: 20
+        borderRadius: 20
     },
     topText: {
         textAlign: "center",
