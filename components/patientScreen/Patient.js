@@ -1,27 +1,29 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Button, Image, SafeAreaView, TouchableOpacity} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
+import { Proxy } from '../../consts/Proxy'
 
 
 
 
 export default function Patient() {
 
+    const patientID = '5fb5600fdae8892ff47684ff'
+
     const [patientData, setPatientData] = useState()
 
     const loadPatients = async () => {
-        const response = await fetch("http://localhost:4000/patients");
+        const response = await fetch(`${Proxy}/patients/${patientID}`);
         const data = await response.json();
-        const patients = data.map((patient, index) => ({
-            id: patient._id,
-            firstName: patient.firstName,
-            lastName: patient.lastName,
-            email: patient.email,
-            phoneNumber: patient.phoneNumber,
-            address: patient.address,
-        }));
-        setPatientData(patients)
+        const patient = {
+            id: data._id,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            phoneNumber: data.phoneNumber,
+            address: data.address,
+        };
+        setPatientData(patient)
     };
 
     useEffect(() => {
@@ -34,12 +36,12 @@ export default function Patient() {
                 <View style={styles.profileContainer}>
                     <Image source={require('../../pictures/profilePicture.jpg')} style={styles.profilePicture}></Image>
                     <View style={styles.profileNameContainer}>
-                        <Text style={styles.profileName}>{patientData ? patientData[0].firstName : "Helen"} {patientData ? patientData[0].lastName : "Dunphy"}</Text>
+                        <Text style={styles.profileName}>{patientData ? patientData.firstName : "Helen"} {patientData ? patientData.lastName : "Dunphy"}</Text>
                     </View>
                 </View>
                 <View style={styles.infoContainer}>
-                    <Text style={styles.infoText}>helendunphy@gmail.com</Text>
-                    <Text style={styles.infoText}>+48 586949333</Text>
+                    <Text style={styles.infoText}>{patientData ? patientData.email : "helen.dunphy@gmail.com"}</Text>
+                    <Text style={styles.infoText}>{patientData ? patientData.phoneNumber : "123456789"}</Text>
                 </View>
                 <TouchableOpacity style={styles.stripsContainer}>
 

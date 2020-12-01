@@ -4,6 +4,7 @@ import { VisitContext } from '../../contexts/VisitContext';
 
 
 
+
 const data = [
   { key: '8:00' }, { key: '9:15' }, { key: '10:00' }, { key: '10:45' }, { key: '11:30' }, 
   { key: '12:30' }, { key: '13:15' }, { key: '14:00' }, { key: '14:45' }, { key: '15:45' }, 
@@ -28,8 +29,6 @@ const formatData = (data, numColumns) => {
 
 const numColumns = 3;
 
-
-
 export default class AvailableHours extends React.Component {
 
   static contextType = VisitContext
@@ -45,8 +44,6 @@ export default class AvailableHours extends React.Component {
 
     this.setState({
       markedItem: item
-    }, () => {
-      console.log(item.key)
     });
   };
 

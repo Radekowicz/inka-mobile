@@ -40,7 +40,6 @@ export default class TimelineCalendarScreen extends Component {
   onDateChanged = (date) => {
     const { setDate } = this.context
     setDate(date)
-    console.log(date)
     this.setState({currentDate: date});
   };
 
