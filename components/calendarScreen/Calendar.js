@@ -19,7 +19,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {LocaleConfig} from 'react-native-calendars';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { VisitContext } from '../../contexts/VisitContext';
+import { Proxy } from '../../consts/Proxy'
+import dayjs from 'dayjs'
 
+var utc = require('dayjs/plugin/utc')
+dayjs.extend(utc)
 
 LocaleConfig.locales['pl'] = {
   monthNames: ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'],
@@ -41,7 +45,25 @@ export default class TimelineCalendarScreen extends Component {
     const { setDate } = this.context
     setDate(date)
     this.setState({currentDate: date});
+    console.log(date)
+    this.loadAppointments(date)
   };
+
+  loadAppointments =  async (date) => {
+    const { setHours } = this.context
+    const response = await fetch(`${Proxy}/appointments?date=${date}`)
+    const data = await response.json();
+    //console.log(data)
+    const hours = []
+    data.map((appointment) => {
+      const hour = dayjs(appointment.startDate).utcOffset(0).format("HH:mm")
+      hours.push({key: hour})
+      //console.log(appointment.startDate)
+    })
+    setHours(hours)
+    console.log(hours)
+  };
+
 
 
   getTheme = () => {

@@ -6,6 +6,7 @@ export default class VisitContextProvider extends Component {
     state = { 
         time: "0:00",
         date: "date",
+        hours: [],
      }
 
      setTime = (time) => {
@@ -16,10 +17,14 @@ export default class VisitContextProvider extends Component {
         this.setState( {date: date} )
     }
 
+    setHours = (hours) => {
+        this.setState( {hours: hours} )
+    }
+
 
     render() { 
         return (  
-            <VisitContext.Provider value={{...this.state, setTime: this.setTime, setDate: this.setDate}}>
+            <VisitContext.Provider value={{...this.state, setTime: this.setTime, setDate: this.setDate, setHours: this.setHours}}>
                 {this.props.children}
             </VisitContext.Provider>
         );

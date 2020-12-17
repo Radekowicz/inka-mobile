@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight, FlatList, Dimensions} from 'react-native';
 import { VisitContext } from '../../contexts/VisitContext';
+import { Proxy } from '../../consts/Proxy'
 
 
 
@@ -11,9 +12,7 @@ const data = [
   { key: '16:30' }, { key: '18:00' },
 ];
 
-const getData = (markedItem) => {
-  return data.map(item => ({...item, marked: markedItem?.key === item.key}))
-}
+
 
 const formatData = (data, numColumns) => {
   const numberOfFullRows = Math.floor(data.length / numColumns);
@@ -29,22 +28,38 @@ const formatData = (data, numColumns) => {
 
 const numColumns = 3;
 
-export default class AvailableHours extends React.Component {
+export default function AvailableHours() {
 
-  static contextType = VisitContext
 
-  constructor(props) {
-    super(props);
-    this.state = { color:  '#5856D6', markedItem: 'bla',};
+  const [appointmentsData, setAppointmentsData] = useState()
+  const [markedItem, setMarkedItem] = useState()
+  const { setTime, date, hours, setHours } = useContext(VisitContext)
+
+
+  // const loadAppointments =  async () => {
+    
+  //   const response = await fetch(`${Proxy}/appointments?date=${date}`)
+  //   const data = await response.json();
+  //   console.log(data)
+  //   const appointments = {
+  //   };
+  //   setAppointmentsData(appointments)
+  // };
+
+  const getData = (markedItem) => {
+
+    return hours.map(item => ({...item, marked: markedItem?.key === item.key}))
   }
 
-  onPress = (item) => {
-    const { setTime } = this.context
-    setTime(item.key)
 
-    this.setState({
-      markedItem: item
-    });
+  useEffect(() => {
+    //loadAppointments()
+  }, [])
+
+  onPress = (item) => {
+    setTime(item.key)
+    setMarkedItem(item)
+    //loadAppointments()
   };
 
   renderItem = ({ item, index }) => {
@@ -53,28 +68,22 @@ export default class AvailableHours extends React.Component {
     }
     return (
       <TouchableOpacity
-        onPress={() => {
-          this.onPress(item)
-        }}
-        style={item.marked ? styles.markedItem : styles.item} //wtf does not work
+        onPress={() => onPress(item)}
+        style={item.marked ? styles.markedItem : styles.item}
       >
         <Text style={item.marked ? styles.markedItemText : styles.itemText}>{item.key}</Text>
       </TouchableOpacity>
     );
   };
 
-  render() {
-    const {time} = this.context
-
     return (
       <FlatList
-        data={formatData(getData(this.state.markedItem), numColumns)}
+        data={formatData(getData(markedItem), numColumns)}
         style={styles.container}
-        renderItem={this.renderItem}
+        renderItem={renderItem}
         numColumns={numColumns}
       />
     );
-  }
 }
 
 const themeColor = "#5856D6"
