@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight, FlatList, Dimensions} from 'react-native';
 import { VisitContext } from '../../contexts/VisitContext';
 import { Proxy } from '../../consts/Proxy'
+import dayjs from 'dayjs'
 
 
 
@@ -31,24 +32,44 @@ const numColumns = 3;
 export default function AvailableHours() {
 
 
-  const [appointmentsData, setAppointmentsData] = useState()
   const [markedItem, setMarkedItem] = useState()
-  const { setTime, date, hours, setHours } = useContext(VisitContext)
+  const { setTime, date, appointments, setAppointments } = useContext(VisitContext)
 
+  const appointmentLength = 45
+  const hourStart = 9
+  const hourEnd = 22
+  const periodMinutes = 15
 
-  // const loadAppointments =  async () => {
-    
-  //   const response = await fetch(`${Proxy}/appointments?date=${date}`)
-  //   const data = await response.json();
-  //   console.log(data)
-  //   const appointments = {
-  //   };
-  //   setAppointmentsData(appointments)
-  // };
+  const isFree = (date) => {
+    const dateStart = date;
+    const dateEnd = date.add(appointmentLength, 'minutes')
+
+    for (let appointment of appointments) {
+      if ((dateStart.isBefore(appointment.endDate) && dateEnd.isAfter(appointment.startDate))) {
+        return false
+      }
+    }
+    return true
+        
+  }
+
 
   const getData = (markedItem) => {
+    const start = dayjs(date).hour(hourStart)
+    const end = dayjs(date).hour(hourEnd)
 
-    return hours.map(item => ({...item, marked: markedItem?.key === item.key}))
+    const availableDates = []
+    let currentDate = start;
+    while (!currentDate.add(appointmentLength, "minutes").isAfter(end)) {
+      if (isFree(currentDate)) {
+        availableDates.push(currentDate);
+      }
+      currentDate = currentDate.add(periodMinutes, 'minutes')
+    }
+
+    return availableDates
+    .map(item => ({key: item.format("HH:mm")}))
+    .map(item => ({...item, marked: markedItem?.key === item.key}))
   }
 
 
