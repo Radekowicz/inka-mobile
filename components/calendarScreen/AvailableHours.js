@@ -60,7 +60,12 @@ export default function AvailableHours() {
 
     const availableDates = []
     let currentDate = start;
+    let count = 0;
     while (!currentDate.add(appointmentLength, "minutes").isAfter(end)) {
+      count++;
+      if (count > 100) {
+        break;
+      }
       if (isFree(currentDate)) {
         availableDates.push(currentDate);
       }
@@ -97,7 +102,7 @@ export default function AvailableHours() {
     );
   };
 
-    return (
+  return (
       <FlatList
         data={formatData(getData(markedItem), numColumns)}
         style={styles.container}

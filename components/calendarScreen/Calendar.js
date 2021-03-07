@@ -42,15 +42,19 @@ export default class TimelineCalendarScreen extends Component {
     const { setDate } = this.context
     setDate(date)
     this.setState({currentDate: date});
-    console.log(date)
     this.loadAppointments(date)
   };
 
   loadAppointments =  async (date) => {
     const { setAppointments } = this.context
-    const response = await fetch(`${Proxy}/appointments?date=${date}`)
-    const data = await response.json();
-    setAppointments(data)
+    try {
+      const response = await fetch(`${Proxy}/api/appointments?date=${date}`)
+      const data = await response.json();
+      console.log(data);
+      setAppointments(data)
+    } catch (e) {
+      console.log(e);
+    }
   };
 
 

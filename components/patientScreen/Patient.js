@@ -13,7 +13,7 @@ export default function Patient() {
     const [patientData, setPatientData] = useState()
 
     const loadPatients = async () => {
-        const response = await fetch(`${Proxy}/patients/${patientID}`);
+        const response = await fetch(`${Proxy}/api/patients/${patientID}`);
         const data = await response.json();
         const patient = {
             id: data._id,
