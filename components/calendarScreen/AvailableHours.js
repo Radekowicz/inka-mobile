@@ -1,37 +1,33 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight, FlatList, Dimensions} from 'react-native';
-import { VisitContext } from '../../contexts/VisitContext';
-import { Proxy } from '../../consts/Proxy'
-import dayjs from 'dayjs'
-
-
-
-
-const data = [
-  { key: '8:00' }, { key: '9:15' }, { key: '10:00' }, { key: '10:45' }, { key: '11:30' }, 
-  { key: '12:30' }, { key: '13:15' }, { key: '14:00' }, { key: '14:45' }, { key: '15:45' }, 
-  { key: '16:30' }, { key: '18:00' },
-];
-
-
+import React, { useState, useContext, useEffect } from "react"
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+  TouchableHighlight,
+  FlatList,
+  Dimensions,
+} from "react-native"
+import { VisitContext } from "../../contexts/VisitContext"
+import { Proxy } from "../../consts/Proxy"
+import dayjs from "dayjs"
 
 const formatData = (data, numColumns) => {
-  const numberOfFullRows = Math.floor(data.length / numColumns);
+  const numberOfFullRows = Math.floor(data.length / numColumns)
 
-  let numberOfElementsLastRow = data.length - (numberOfFullRows * numColumns);
+  let numberOfElementsLastRow = data.length - numberOfFullRows * numColumns
   while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
-    data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true });
-    numberOfElementsLastRow++;
+    data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true })
+    numberOfElementsLastRow++
   }
 
-  return data;
-};
+  return data
+}
 
-const numColumns = 3;
+const numColumns = 3
 
 export default function AvailableHours() {
-
-
   const [markedItem, setMarkedItem] = useState()
   const { setTime, date, appointments, setAppointments } = useContext(VisitContext)
 
@@ -41,56 +37,45 @@ export default function AvailableHours() {
   const periodMinutes = 15
 
   const isFree = (date) => {
-    const dateStart = date;
-    const dateEnd = date.add(appointmentLength, 'minutes')
+    const dateStart = date
+    const dateEnd = date.add(appointmentLength, "minutes")
 
     for (let appointment of appointments) {
-      if ((dateStart.isBefore(appointment.endDate) && dateEnd.isAfter(appointment.startDate))) {
+      if (dateStart.isBefore(appointment.endDate) && dateEnd.isAfter(appointment.startDate)) {
         return false
       }
     }
     return true
-        
   }
-
 
   const getData = (markedItem) => {
     const start = dayjs(date).hour(hourStart)
     const end = dayjs(date).hour(hourEnd)
 
     const availableDates = []
-    let currentDate = start;
-    let count = 0;
+    let currentDate = start
     while (!currentDate.add(appointmentLength, "minutes").isAfter(end)) {
-      count++;
-      if (count > 100) {
-        break;
-      }
       if (isFree(currentDate)) {
-        availableDates.push(currentDate);
+        availableDates.push(currentDate)
       }
-      currentDate = currentDate.add(periodMinutes, 'minutes')
+      currentDate = currentDate.add(periodMinutes, "minutes")
     }
 
     return availableDates
-    .map(item => ({key: item.format("HH:mm")}))
-    .map(item => ({...item, marked: markedItem?.key === item.key}))
+      .map((item) => ({ key: item.format("HH:mm") }))
+      .map((item) => ({ ...item, marked: markedItem?.key === item.key }))
   }
 
-
-  useEffect(() => {
-    //loadAppointments()
-  }, [])
+  useEffect(() => {}, [])
 
   onPress = (item) => {
     setTime(item.key)
     setMarkedItem(item)
-    //loadAppointments()
-  };
+  }
 
   renderItem = ({ item, index }) => {
     if (item.empty === true) {
-      return <View style={[styles.item, styles.itemInvisible]} />;
+      return <View style={[styles.item, styles.itemInvisible]} />
     }
     return (
       <TouchableOpacity
@@ -99,17 +84,18 @@ export default function AvailableHours() {
       >
         <Text style={item.marked ? styles.markedItemText : styles.itemText}>{item.key}</Text>
       </TouchableOpacity>
-    );
-  };
+    )
+  }
 
   return (
-      <FlatList
-        data={formatData(getData(markedItem), numColumns)}
-        style={styles.container}
-        renderItem={renderItem}
-        numColumns={numColumns}
-      />
-    );
+    <FlatList
+      data={formatData(getData(markedItem), numColumns)}
+      // data={formatData(getData2(), numColumns)}
+      style={styles.container}
+      renderItem={renderItem}
+      numColumns={numColumns}
+    />
+  )
 }
 
 const themeColor = "#5856D6"
@@ -122,36 +108,36 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   item: {
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
     margin: 10,
-    width: Dimensions.get('window').width / numColumns - 30,
+    width: Dimensions.get("window").width / numColumns - 30,
     height: 50,
     borderRadius: 90,
     borderColor: themeColor,
-    borderWidth: 2
+    borderWidth: 2,
 
     //height: Dimensions.get('window').width / numColumns, // approximate a square
   },
   markedItem: {
     backgroundColor: themeColor,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     margin: 10,
-    width: Dimensions.get('window').width / numColumns - 30,
+    width: Dimensions.get("window").width / numColumns - 30,
     height: 50,
     borderRadius: 90,
   },
   itemInvisible: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
   itemText: {
     color: themeColor,
-    fontSize: 15
+    fontSize: 15,
   },
   markedItemText: {
-    color: '#fff',
-    fontSize: 15
-  }
-});
+    color: "#fff",
+    fontSize: 15,
+  },
+})
