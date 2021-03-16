@@ -90,7 +90,6 @@ export default function AvailableHours() {
   return (
     <FlatList
       data={formatData(getData(markedItem), numColumns)}
-      // data={formatData(getData2(), numColumns)}
       style={styles.container}
       renderItem={renderItem}
       numColumns={numColumns}

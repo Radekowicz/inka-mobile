@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { StyleSheet, Text, View, Button, Image, SafeAreaView, TouchableOpacity } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import { Proxy } from "../../consts/Proxy"
+import { VisitContext } from "../../contexts/VisitContext"
 
 export default function Patient() {
-  const patientID = "5fb5600fdae8892ff47684ff"
-
+  const { patientId, setPatientId } = useContext(VisitContext)
   const [patientData, setPatientData] = useState()
 
-  const loadPatients = async () => {
-    const response = await fetch(`${Proxy}/api/patients/${patientID}`)
+  const loadPatient = async () => {
+    const response = await fetch(`${Proxy}/api/patients/${patientId}`)
     const data = await response.json()
     const patient = {
       id: data._id,
@@ -23,7 +23,7 @@ export default function Patient() {
   }
 
   useEffect(() => {
-    loadPatients()
+    loadPatient()
   }, [])
 
   return (

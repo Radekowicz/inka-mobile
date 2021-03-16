@@ -25,15 +25,13 @@ const Stack = createStackNavigator()
 
 export default function CalendarScreen() {
   return (
-    <VisitContextProvider>
-      <Stack.Navigator screenOptions={{ headerShown: true }}>
-        <Stack.Screen
-          name="ChooseAppointment"
-          component={MakeCalendar}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="VisitDetails" component={MakeVisitDetails} />
-      </Stack.Navigator>
-    </VisitContextProvider>
+    <Stack.Navigator screenOptions={{ headerShown: true }}>
+      <Stack.Screen
+        name="ChooseAppointment"
+        component={MakeCalendar}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="VisitDetails" component={MakeVisitDetails} />
+    </Stack.Navigator>
   )
 }
