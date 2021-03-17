@@ -4,8 +4,22 @@ import { VisitContext } from "../../contexts/VisitContext"
 import { Proxy } from "../../consts/Proxy"
 import dayjs from "dayjs"
 import { useNavigation } from "@react-navigation/native"
+import { ScrollView } from "react-native-gesture-handler"
+
 require("dayjs/locale/pl")
 dayjs.locale("pl")
+
+function Visit(props) {
+  return (
+    <View style={styles.visit}>
+      <Image source={require("../../pictures/patientSmile.jpg")} style={styles.image} />
+      <Text style={styles.mainText}>{props.label}</Text>
+      <Text style={styles.mainText}>{props.startDate}</Text>
+      <Text style={styles.mainText}>{props.startHour}</Text>
+      <Text style={styles.mainText}>{props.price} zł</Text>
+    </View>
+  )
+}
 
 export default function NextVisit() {
   const { patientId, date } = useContext(VisitContext)
@@ -21,7 +35,7 @@ export default function NextVisit() {
         id: appointment?._id,
         label: appointment?.type.label,
         price: appointment?.type.price,
-        startDate: dayjs(appointment?.startDate).format("dddd, DD MMMM"),
+        startDate: dayjs(appointment?.startDate).format("dddd, DD MMMM YYYY"),
         startHour: dayjs(appointment?.startDate).format("HH:mm"),
       }))
       setAppointments(appointments)
@@ -36,16 +50,18 @@ export default function NextVisit() {
 
   return (
     <SafeAreaView>
-      <Text style={styles.title}>Następna wizyta</Text>
-      {appointments?.map((appointment, index) => (
-        <View style={styles.visit}>
-          <Image source={require("../../pictures/patientSmile.jpg")} style={styles.image} />
-          <Text style={styles.mainText}>{appointments[index].label}</Text>
-          <Text style={styles.mainText}>{appointments[index].startDate}</Text>
-          <Text style={styles.mainText}>{appointments[index].startHour}</Text>
-          <Text style={styles.mainText}>{appointments[index].price} zł</Text>
-        </View>
-      ))}
+      <ScrollView>
+        <Text style={styles.title}>Następna wizyta</Text>
+        {appointments?.map((appointment) => (
+          <Visit
+            key={`${appointment.startDate}T${appointment.startHour}`}
+            label={appointment.label}
+            startDate={appointment.startDate}
+            startHour={appointment.startHour}
+            price={appointment.price}
+          />
+        ))}
+      </ScrollView>
     </SafeAreaView>
   )
 }

@@ -7,6 +7,16 @@ import { ScrollView } from "react-native-gesture-handler"
 require("dayjs/locale/pl")
 dayjs.locale("pl")
 
+function Visit(props) {
+  return (
+    <View style={styles.visit}>
+      <Text style={styles.mainText}>{props.label}</Text>
+      <Text style={styles.mainText}>{props.startDate}</Text>
+      <Text style={styles.mainText}>{props.startHour}</Text>
+      <Text style={styles.mainText}>{props.price} zł</Text>
+    </View>
+  )
+}
 export default function MyVisits() {
   const { patientId, setPatientId } = useContext(VisitContext)
   const [appointments, setAppointments] = useState()
@@ -18,10 +28,9 @@ export default function MyVisits() {
         id: appointment?._id,
         label: appointment?.type.label,
         price: appointment?.type.price,
-        startDate: dayjs(appointment?.startDate).format("dddd, DD MMMM"),
+        startDate: dayjs(appointment?.startDate).format("dddd, DD MMMM YYYY"),
         startHour: dayjs(appointment?.startDate).format("HH:mm"),
       }))
-      console.log(appointments)
       setAppointments(appointments)
     } catch (e) {
       console.log(e)
@@ -36,13 +45,14 @@ export default function MyVisits() {
     <SafeAreaView>
       <ScrollView>
         <Text style={styles.title}>Twoje wizyty</Text>
-        {appointments?.map((appointment, index) => (
-          <View style={styles.visit}>
-            <Text style={styles.mainText}>{appointments[index].label}</Text>
-            <Text style={styles.mainText}>{appointments[index].startDate}</Text>
-            <Text style={styles.mainText}>{appointments[index].startHour}</Text>
-            <Text style={styles.mainText}>{appointments[index].price} zł</Text>
-          </View>
+        {appointments?.map((appointment) => (
+          <Visit
+            key={`${appointment.startDate}T${appointment.startHour}`}
+            label={appointment.label}
+            startDate={appointment.startDate}
+            startHour={appointment.startHour}
+            price={appointment.price}
+          />
         ))}
       </ScrollView>
     </SafeAreaView>
