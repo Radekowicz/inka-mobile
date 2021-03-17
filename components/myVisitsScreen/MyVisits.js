@@ -18,11 +18,13 @@ function Visit(props) {
   )
 }
 export default function MyVisits() {
-  const { patientId, setPatientId } = useContext(VisitContext)
+  const { patientId, setPatientId, date } = useContext(VisitContext)
   const [appointments, setAppointments] = useState()
   const loadAppointments = async () => {
     try {
-      const response = await fetch(`${Proxy}/api/appointments/${patientId}`)
+      const response = await fetch(
+        `${Proxy}/api/appointments?date=${date}&&patient=${patientId}&&time=before`
+      )
       const data = await response.json()
       const appointments = data.map((appointment) => ({
         id: appointment?._id,

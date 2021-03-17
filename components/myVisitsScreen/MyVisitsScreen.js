@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginHorizontal: 20,
     marginTop: 20,
+    marginBottom: 20,
   },
   clicked: { fontSize: 20 },
   notClicked: { fontSize: 20, color: "#A9A9A9" },

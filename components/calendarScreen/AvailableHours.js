@@ -12,6 +12,10 @@ import {
 import { VisitContext } from "../../contexts/VisitContext"
 import { Proxy } from "../../consts/Proxy"
 import dayjs from "dayjs"
+var isSameOrAfter = require("dayjs/plugin/isSameOrAfter")
+require("dayjs/locale/pl")
+dayjs.locale("pl")
+dayjs.extend(isSameOrAfter)
 
 const formatData = (data, numColumns) => {
   const numberOfFullRows = Math.floor(data.length / numColumns)
@@ -87,14 +91,17 @@ export default function AvailableHours() {
     )
   }
 
-  return (
-    <FlatList
-      data={formatData(getData(markedItem), numColumns)}
-      style={styles.container}
-      renderItem={renderItem}
-      numColumns={numColumns}
-    />
-  )
+  if (dayjs(date).isSameOrAfter(dayjs(), "day")) {
+    return (
+      <FlatList
+        data={formatData(getData(markedItem), numColumns)}
+        style={styles.container}
+        renderItem={renderItem}
+        numColumns={numColumns}
+      />
+    )
+  }
+  return <View></View>
 }
 
 const themeColor = "#5856D6"

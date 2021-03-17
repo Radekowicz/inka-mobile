@@ -12,7 +12,7 @@ dayjs.locale("pl")
 function Visit(props) {
   return (
     <View style={styles.visit}>
-      <Image source={require("../../pictures/patientSmile.jpg")} style={styles.image} />
+      <Image source={require("../../pictures/card.png")} style={styles.image} />
       <Text style={styles.mainText}>{props.label}</Text>
       <Text style={styles.mainText}>{props.startDate}</Text>
       <Text style={styles.mainText}>{props.startHour}</Text>
@@ -29,7 +29,9 @@ export default function NextVisit() {
 
   const loadAppointments = async () => {
     try {
-      const response = await fetch(`${Proxy}/api/appointments?date=${date}&&patient=${patientId}`)
+      const response = await fetch(
+        `${Proxy}/api/appointments?date=${date}&&patient=${patientId}&&time=after`
+      )
       const data = await response.json()
       const appointments = data.map((appointment) => ({
         id: appointment?._id,
