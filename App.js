@@ -16,11 +16,7 @@ function MakeCalendarScreen() {
 }
 
 function MyAppointmentsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <MyVisitsScreen />
-    </View>
-  )
+  return <MyVisitsScreen />
 }
 
 function MakePatientScreen() {

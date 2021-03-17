@@ -10,6 +10,9 @@ import { LocaleConfig } from "react-native-calendars"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { VisitContext } from "../../contexts/VisitContext"
 import { Proxy } from "../../consts/Proxy"
+import dayjs from "dayjs"
+require("dayjs/locale/pl")
+dayjs.locale("pl")
 
 LocaleConfig.locales["pl"] = {
   monthNames: [
@@ -48,7 +51,7 @@ LocaleConfig.defaultLocale = "pl"
 
 export default class TimelineCalendarScreen extends Component {
   state = {
-    currentDate: "2021-03-15",
+    currentDate: dayjs().format("YYYY-MM-DD"),
   }
 
   static contextType = VisitContext

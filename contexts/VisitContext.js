@@ -1,11 +1,14 @@
 import React, { createContext, Component } from "react"
+import dayjs from "dayjs"
+require("dayjs/locale/pl")
+dayjs.locale("pl")
 
 export const VisitContext = createContext()
 
 export default class VisitContextProvider extends Component {
   state = {
-    time: "0:00",
-    date: "2021-03-15",
+    time: "8:00",
+    date: dayjs().format("YYYY-MM-DD"),
     appointments: [],
     patientId: "605077b62a48a0095d54f7b7",
   }
