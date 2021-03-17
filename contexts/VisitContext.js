@@ -11,6 +11,7 @@ export default class VisitContextProvider extends Component {
     date: dayjs().format("YYYY-MM-DD"),
     appointments: [],
     patientId: "605077b62a48a0095d54f7b7",
+    isLogged: false,
   }
 
   setTime = (time) => {
@@ -29,6 +30,10 @@ export default class VisitContextProvider extends Component {
     this.setState({ patientId })
   }
 
+  setIsLogged = (isLogged) => {
+    this.setState({ isLogged })
+  }
+
   render() {
     return (
       <VisitContext.Provider
@@ -38,6 +43,7 @@ export default class VisitContextProvider extends Component {
           setDate: this.setDate,
           setAppointments: this.setAppointments,
           setPatientId: this.setPatientId,
+          setIsLogged: this.setIsLogged,
         }}
       >
         {this.props.children}

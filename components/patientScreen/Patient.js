@@ -5,7 +5,7 @@ import { Proxy } from "../../consts/Proxy"
 import { VisitContext } from "../../contexts/VisitContext"
 
 export default function Patient() {
-  const { patientId, setPatientId } = useContext(VisitContext)
+  const { patientId, setPatientId, isLogged, setIsLogged } = useContext(VisitContext)
   const [patientData, setPatientData] = useState()
 
   const loadPatient = async () => {
@@ -58,6 +58,10 @@ export default function Patient() {
         <TouchableOpacity style={styles.stripsContainer}>
           <Ionicons style={styles.stripsImage} name="ios-settings" />
           <Text style={styles.stripsText}>Ustawienia</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.stripsContainer} onPress={() => setIsLogged(false)}>
+          <Ionicons style={styles.stripsImage} name="ios-log-out" />
+          <Text style={styles.stripsText}>Wyloguj się</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
