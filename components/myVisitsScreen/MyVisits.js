@@ -40,6 +40,7 @@ export default function MyVisits() {
         startDate: dayjs(appointment?.startDate).format("dddd, DD MMMM YYYY"),
         startHour: dayjs(appointment?.startDate).format("HH:mm"),
       }));
+      console.log("appointments", appointments);
       setAppointments(appointments);
     } catch (e) {
       console.log(e);

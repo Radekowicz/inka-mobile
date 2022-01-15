@@ -14,7 +14,7 @@ import { Proxy } from "../../consts/Proxy";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Login() {
-  const { isLogged, setIsLogged } = useContext(VisitContext);
+  const { setIsLogged, setPatientId } = useContext(VisitContext);
   const [email, onChangeEmail] = useState();
   const [password, onChangePassword] = useState();
   const navigation = useNavigation();
@@ -33,9 +33,11 @@ export default function Login() {
         }),
       });
       console.log("status login", response.status);
+      const data = await response.json();
 
       if (response.status === 200) {
         setIsLogged(true);
+        setPatientId(data._id);
       } else {
         navigation.navigate("Login");
       }

@@ -19,7 +19,10 @@ dayjs.locale("pl");
 function Visit(props) {
   return (
     <View style={styles.visit}>
-      <Image source={require("../../pictures/card.png")} style={styles.image} />
+      <Image
+        source={require("../../pictures/card3.png")}
+        style={styles.image}
+      />
       <Text style={styles.mainText}>{props.label}</Text>
       <Text style={styles.mainText}>{props.startDate}</Text>
       <Text style={styles.mainText}>{props.startHour}</Text>
@@ -47,6 +50,7 @@ export default function NextVisit() {
         startDate: dayjs(appointment?.startDate).format("dddd, DD MMMM YYYY"),
         startHour: dayjs(appointment?.startDate).format("HH:mm"),
       }));
+      console.log("appointments", appointments);
       setAppointments(appointments);
     } catch (e) {
       console.log(e);

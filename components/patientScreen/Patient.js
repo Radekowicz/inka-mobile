@@ -20,6 +20,7 @@ export default function Patient() {
   const loadPatient = async () => {
     const response = await fetch(`${Proxy}/api/patients/${patientId}`);
     const data = await response.json();
+    console.log("patient data:", data);
     const patient = {
       id: data._id,
       firstName: data.firstName,
@@ -35,6 +36,23 @@ export default function Patient() {
     loadPatient();
   }, []);
 
+  const lol = async () => {
+    const response = await fetch(`${Proxy}/api/patients/isAuthorized`);
+    console.log("isAuthorized:", response.status);
+  };
+
+  const logout = async () => {
+    const response = await fetch(`${Proxy}/api/patients/logout`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    });
+    console.log("logout:", response.status);
+  };
+
   return (
     <SafeAreaView style={styles.safeView}>
       <View style={styles.mainContainer}>
@@ -45,17 +63,17 @@ export default function Patient() {
           ></Image>
           <View style={styles.profileNameContainer}>
             <Text style={styles.profileName}>
-              {patientData ? patientData.firstName : "Helen"}{" "}
-              {patientData ? patientData.lastName : "Dunphy"}
+              {patientData?.firstName || "Helen"}{" "}
+              {patientData?.lastName || "Dunphy"}
             </Text>
           </View>
         </View>
         <View style={styles.infoContainer}>
           <Text style={styles.infoText}>
-            {patientData ? patientData.email : "helen.dunphy@gmail.com"}
+            {patientData?.email || "helen.dunphy@gmail.com"}
           </Text>
           <Text style={styles.infoText}>
-            {patientData ? patientData.phoneNumber : "123456789"}
+            {patientData?.phoneNumber || "123456789"}
           </Text>
         </View>
         <TouchableOpacity style={styles.stripsContainer}>
@@ -66,13 +84,16 @@ export default function Patient() {
           <Ionicons style={styles.stripsImage} name="ios-notifications" />
           <Text style={styles.stripsText}>Powiadomienia</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.stripsContainer}>
+        <TouchableOpacity style={styles.stripsContainer} onPress={lol}>
           <Ionicons style={styles.stripsImage} name="ios-settings" />
           <Text style={styles.stripsText}>Ustawienia</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.stripsContainer}
-          onPress={() => setIsLogged(false)}
+          onPress={async () => {
+            logout();
+            setIsLogged(false);
+          }}
         >
           <Ionicons style={styles.stripsImage} name="ios-log-out" />
           <Text style={styles.stripsText}>Wyloguj się</Text>

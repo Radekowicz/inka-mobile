@@ -15,7 +15,7 @@ import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 
 export default function OfficeId() {
-  const { isLogged, setIsLogged } = useContext(VisitContext);
+  const { setIsLogged, setPatientId } = useContext(VisitContext);
   const route = useRoute();
   const { newPatient } = route.params;
   const navigation = useNavigation();
@@ -34,9 +34,11 @@ export default function OfficeId() {
         }),
       });
       console.log("status login", response.status);
+      const data = await response.json();
 
       if (response.status === 200) {
         setIsLogged(true);
+        setPatientId(data._id);
       } else {
         navigation.navigate("Login");
       }
