@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react"
+import React, { useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,88 +8,97 @@ import {
   TouchableHighlight,
   FlatList,
   Dimensions,
-} from "react-native"
-import { VisitContext } from "../../contexts/VisitContext"
-import { Proxy } from "../../consts/Proxy"
-import dayjs from "dayjs"
-var isSameOrAfter = require("dayjs/plugin/isSameOrAfter")
-require("dayjs/locale/pl")
-dayjs.locale("pl")
-dayjs.extend(isSameOrAfter)
+} from "react-native";
+import { VisitContext } from "../../contexts/VisitContext";
+import { Proxy } from "../../consts/Proxy";
+import dayjs from "dayjs";
+var isSameOrAfter = require("dayjs/plugin/isSameOrAfter");
+require("dayjs/locale/pl");
+dayjs.locale("pl");
+dayjs.extend(isSameOrAfter);
 
 const formatData = (data, numColumns) => {
-  const numberOfFullRows = Math.floor(data.length / numColumns)
+  const numberOfFullRows = Math.floor(data.length / numColumns);
 
-  let numberOfElementsLastRow = data.length - numberOfFullRows * numColumns
-  while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
-    data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true })
-    numberOfElementsLastRow++
+  let numberOfElementsLastRow = data.length - numberOfFullRows * numColumns;
+  while (
+    numberOfElementsLastRow !== numColumns &&
+    numberOfElementsLastRow !== 0
+  ) {
+    data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true });
+    numberOfElementsLastRow++;
   }
 
-  return data
-}
+  return data;
+};
 
-const numColumns = 3
+const numColumns = 3;
 
 export default function AvailableHours() {
-  const [markedItem, setMarkedItem] = useState()
-  const { setTime, date, appointments, setAppointments } = useContext(VisitContext)
+  const [markedItem, setMarkedItem] = useState();
+  const { setTime, date, appointments, setAppointments } =
+    useContext(VisitContext);
 
-  const appointmentLength = 45
-  const hourStart = 9
-  const hourEnd = 22
-  const periodMinutes = 15
+  const appointmentLength = 45;
+  const hourStart = 9;
+  const hourEnd = 22;
+  const periodMinutes = 15;
 
   const isFree = (date) => {
-    const dateStart = date
-    const dateEnd = date.add(appointmentLength, "minutes")
+    const dateStart = date;
+    const dateEnd = date.add(appointmentLength, "minutes");
 
     for (let appointment of appointments) {
-      if (dateStart.isBefore(appointment.endDate) && dateEnd.isAfter(appointment.startDate)) {
-        return false
+      if (
+        dateStart.isBefore(appointment.endDate) &&
+        dateEnd.isAfter(appointment.startDate)
+      ) {
+        return false;
       }
     }
-    return true
-  }
+    return true;
+  };
 
   const getData = (markedItem) => {
-    const start = dayjs(date).hour(hourStart)
-    const end = dayjs(date).hour(hourEnd)
+    const start = dayjs(date).hour(hourStart);
+    const end = dayjs(date).hour(hourEnd);
 
-    const availableDates = []
-    let currentDate = start
+    const availableDates = [];
+    let currentDate = start;
     while (!currentDate.add(appointmentLength, "minutes").isAfter(end)) {
       if (isFree(currentDate)) {
-        availableDates.push(currentDate)
+        availableDates.push(currentDate);
       }
-      currentDate = currentDate.add(periodMinutes, "minutes")
+      currentDate = currentDate.add(periodMinutes, "minutes");
     }
 
     return availableDates
       .map((item) => ({ key: item.format("HH:mm") }))
-      .map((item) => ({ ...item, marked: markedItem?.key === item.key }))
-  }
+      .map((item) => ({ ...item, marked: markedItem?.key === item.key }));
+  };
 
-  useEffect(() => {}, [])
+  useEffect(() => {}, []);
 
   onPress = (item) => {
-    setTime(item.key)
-    setMarkedItem(item)
-  }
+    setTime(item.key);
+    setMarkedItem(item);
+  };
 
   renderItem = ({ item, index }) => {
     if (item.empty === true) {
-      return <View style={[styles.item, styles.itemInvisible]} />
+      return <View style={[styles.item, styles.itemInvisible]} />;
     }
     return (
       <TouchableOpacity
         onPress={() => onPress(item)}
         style={item.marked ? styles.markedItem : styles.item}
       >
-        <Text style={item.marked ? styles.markedItemText : styles.itemText}>{item.key}</Text>
+        <Text style={item.marked ? styles.markedItemText : styles.itemText}>
+          {item.key}
+        </Text>
       </TouchableOpacity>
-    )
-  }
+    );
+  };
 
   if (dayjs(date).isSameOrAfter(dayjs(), "day")) {
     return (
@@ -99,12 +108,12 @@ export default function AvailableHours() {
         renderItem={renderItem}
         numColumns={numColumns}
       />
-    )
+    );
   }
-  return <View></View>
+  return <View></View>;
 }
 
-const themeColor = "#5856D6"
+const themeColor = "#1AAEB0";
 
 const styles = StyleSheet.create({
   container: {
@@ -146,4 +155,4 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 15,
   },
-})
+});

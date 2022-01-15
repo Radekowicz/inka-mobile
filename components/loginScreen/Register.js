@@ -84,7 +84,7 @@ export default function Register() {
   );
 }
 
-const themeColor = "#5856D6";
+const themeColor = "#1AAEB0";
 
 const styles = StyleSheet.create({
   title: {

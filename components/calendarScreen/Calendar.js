@@ -91,7 +91,7 @@ export default class TimelineCalendarScreen extends Component {
   };
 
   getTheme = () => {
-    const themeColor = "#5856D6";
+    const themeColor = "#1AAEB0";
     const lightThemeColor = "#e6efff";
     const disabledColor = "#a6acb1";
     const black = "#20303c";
@@ -174,7 +174,7 @@ export default class TimelineCalendarScreen extends Component {
   }
 }
 
-const themeColor = "#5856D6";
+const themeColor = "#1AAEB0";
 
 const styles = StyleSheet.create({
   calendar: {

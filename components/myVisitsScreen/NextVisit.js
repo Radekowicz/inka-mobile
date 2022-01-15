@@ -1,13 +1,20 @@
-import React, { useState, useContext, useEffect } from "react"
-import { StyleSheet, Text, View, Button, Image, SafeAreaView } from "react-native"
-import { VisitContext } from "../../contexts/VisitContext"
-import { Proxy } from "../../consts/Proxy"
-import dayjs from "dayjs"
-import { useNavigation } from "@react-navigation/native"
-import { ScrollView } from "react-native-gesture-handler"
+import React, { useState, useContext, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Image,
+  SafeAreaView,
+} from "react-native";
+import { VisitContext } from "../../contexts/VisitContext";
+import { Proxy } from "../../consts/Proxy";
+import dayjs from "dayjs";
+import { useNavigation } from "@react-navigation/native";
+import { ScrollView } from "react-native-gesture-handler";
 
-require("dayjs/locale/pl")
-dayjs.locale("pl")
+require("dayjs/locale/pl");
+dayjs.locale("pl");
 
 function Visit(props) {
   return (
@@ -18,37 +25,37 @@ function Visit(props) {
       <Text style={styles.mainText}>{props.startHour}</Text>
       <Text style={styles.mainText}>{props.price} zł</Text>
     </View>
-  )
+  );
 }
 
 export default function NextVisit() {
-  const { patientId, date } = useContext(VisitContext)
-  const [appointments, setAppointments] = useState()
-  const [patientData, setPatientData] = useState()
-  const navigation = useNavigation()
+  const { patientId, date } = useContext(VisitContext);
+  const [appointments, setAppointments] = useState();
+  const [patientData, setPatientData] = useState();
+  const navigation = useNavigation();
 
   const loadAppointments = async () => {
     try {
       const response = await fetch(
         `${Proxy}/api/appointments?date=${date}&&patient=${patientId}&&time=after`
-      )
-      const data = await response.json()
+      );
+      const data = await response.json();
       const appointments = data.map((appointment) => ({
         id: appointment?._id,
         label: appointment?.type.label,
         price: appointment?.type.price,
         startDate: dayjs(appointment?.startDate).format("dddd, DD MMMM YYYY"),
         startHour: dayjs(appointment?.startDate).format("HH:mm"),
-      }))
-      setAppointments(appointments)
+      }));
+      setAppointments(appointments);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
-    loadAppointments()
-  }, [])
+    loadAppointments();
+  }, []);
 
   return (
     <SafeAreaView>
@@ -65,10 +72,10 @@ export default function NextVisit() {
         ))}
       </ScrollView>
     </SafeAreaView>
-  )
+  );
 }
 
-const themeColor = "#5856D6"
+const themeColor = "#1AAEB0";
 
 const styles = StyleSheet.create({
   container: {},
@@ -118,4 +125,4 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginLeft: 30,
   },
-})
+});

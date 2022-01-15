@@ -84,7 +84,7 @@ export default function OfficeId() {
   );
 }
 
-const themeColor = "#5856D6";
+const themeColor = "#1AAEB0";
 
 const styles = StyleSheet.create({
   text: {
