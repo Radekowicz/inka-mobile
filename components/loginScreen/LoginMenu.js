@@ -1,36 +1,44 @@
-import React, { useState, useContext, useEffect } from "react"
-import { StyleSheet, Text, View, Button, SafeAreaView, Switch } from "react-native"
-import { createStackNavigator } from "@react-navigation/stack"
-import { TouchableOpacity } from "react-native-gesture-handler"
-import { useNavigation } from "@react-navigation/native"
-import Login from "./Login"
-import Register from "./Register"
+import React, { useState, useContext, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  SafeAreaView,
+  Switch,
+} from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
+import Login from "./Login";
+import Register from "./Register";
 
 export default function LoginMenu(props) {
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Text style={styles.title}>DENTI</Text>
+      <Text style={styles.title}>Denti</Text>
       <View style={styles.toggleContainer}>
         <TouchableOpacity
           onPress={() => {
-            props.navigation.navigate("Login")
+            navigation.navigate("Login");
           }}
         >
-          <Text style={styles.button}>Zaloguj się</Text>
+          <Text style={styles.button}>Logowanie</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            props.navigation.navigate("Register")
+            navigation.navigate("Register");
           }}
         >
           <Text style={styles.button}>Rejestracja</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
-  )
+  );
 }
 
-const themeColor = "#5856D6"
+const themeColor = "#5856D6";
 
 const styles = StyleSheet.create({
   title: {
@@ -54,4 +62,4 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     color: "white",
   },
-})
+});

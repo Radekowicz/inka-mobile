@@ -1,23 +1,48 @@
-import React, { useState, useContext, useEffect } from "react"
-import { StyleSheet, Text, View, Button, SafeAreaView, TextInput, Dimensions } from "react-native"
-import { TouchableOpacity } from "react-native-gesture-handler"
-import { VisitContext } from "../../contexts/VisitContext"
-import { Ionicons } from "@expo/vector-icons"
+import React, { useState, useContext, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  SafeAreaView,
+  TextInput,
+  Dimensions,
+} from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { VisitContext } from "../../contexts/VisitContext";
+import { Proxy } from "../../consts/Proxy";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Login() {
-  const { isLogged, setIsLogged } = useContext(VisitContext)
-  const [email, onChangeEmail] = useState()
-  const [password, onChangePassword] = useState()
-
-  const checkLogin = async () => {
-    return true
-  }
+  const { isLogged, setIsLogged } = useContext(VisitContext);
+  const [email, onChangeEmail] = useState();
+  const [password, onChangePassword] = useState();
+  const navigation = useNavigation();
 
   const handleLoginPress = async () => {
-    if (checkLogin) {
-      setIsLogged(true)
+    try {
+      const response = await fetch(`${Proxy}/api/patients/auth`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+      console.log("status login", response.status);
+
+      if (response.status === 200) {
+        setIsLogged(true);
+      } else {
+        navigation.navigate("Login");
+      }
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -40,19 +65,14 @@ export default function Login() {
           secureTextEntry={true}
         />
       </View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          handleLoginPress()
-        }}
-      >
+      <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
         <Text style={{ color: "white", fontSize: 18 }}>Zaloguj</Text>
       </TouchableOpacity>
     </SafeAreaView>
-  )
+  );
 }
 
-const themeColor = "#5856D6"
+const themeColor = "#5856D6";
 
 const styles = StyleSheet.create({
   title: {
@@ -78,4 +98,4 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width - 80,
     fontSize: 15,
   },
-})
+});

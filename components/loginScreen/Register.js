@@ -1,26 +1,57 @@
-import React, { useState, useContext } from "react"
-import { StyleSheet, Text, View, SafeAreaView, TextInput, Dimensions } from "react-native"
-import { TouchableOpacity } from "react-native-gesture-handler"
-import { VisitContext } from "../../contexts/VisitContext"
+import React, { useState, useContext } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TextInput,
+  Dimensions,
+} from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { VisitContext } from "../../contexts/VisitContext";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Register() {
-  const { isLogged, setIsLogged } = useContext(VisitContext)
-  const [email, onChangeEmail] = useState()
-  const [password, onChangePassword] = useState()
-  const [passwordRepeat, onChangePasswordRepeat] = useState()
+  const { isLogged, setIsLogged } = useContext(VisitContext);
 
-  const checkLogin = async () => {
-    return true
-  }
+  const [firstName, onChangeFirstName] = useState();
+  const [lastName, onChangeLastName] = useState();
+  const [email, onChangeEmail] = useState();
+  const [password, onChangePassword] = useState();
+
+  const navigation = useNavigation();
 
   const handleRegisterPress = async () => {
-    if (checkLogin) {
-      setIsLogged(true)
-    }
-  }
+    const newPatient = {
+      firstName,
+      lastName,
+      email,
+      password,
+    };
+    navigation.navigate("OfficeId", {
+      newPatient,
+    });
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.inputContainer}>
+        <Text style={styles.text}>Imię</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeFirstName}
+          value={firstName}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.text}>Nazwisko</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeLastName}
+          value={lastName}
+        />
+      </View>
+
       <View style={styles.inputContainer}>
         <Text style={styles.text}>Email</Text>
         <TextInput
@@ -40,29 +71,20 @@ export default function Register() {
           secureTextEntry={true}
         />
       </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.text}>Powtórz hasło</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangePasswordRepeat}
-          value={passwordRepeat}
-          autoCompleteType="password"
-          secureTextEntry={true}
-        />
-      </View>
+
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          handleRegisterPress()
+          handleRegisterPress();
         }}
       >
-        <Text style={{ color: "white", fontSize: 18 }}>Utwórz konto</Text>
+        <Text style={{ color: "white", fontSize: 18 }}>Zarejestruj się</Text>
       </TouchableOpacity>
     </SafeAreaView>
-  )
+  );
 }
 
-const themeColor = "#5856D6"
+const themeColor = "#5856D6";
 
 const styles = StyleSheet.create({
   title: {
@@ -88,4 +110,4 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width - 80,
     fontSize: 15,
   },
-})
+});

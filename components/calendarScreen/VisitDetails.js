@@ -1,22 +1,22 @@
-import React, { useState, useContext, useEffect } from "react"
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { VisitContext } from "../../contexts/VisitContext"
-import { Proxy } from "../../consts/Proxy"
-import dayjs from "dayjs"
-import pl from "dayjs/locale/pl"
-import { useNavigation } from "@react-navigation/native"
-import { min } from "lodash"
+import React, { useState, useContext, useEffect } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { VisitContext } from "../../contexts/VisitContext";
+import { Proxy } from "../../consts/Proxy";
+import dayjs from "dayjs";
+import pl from "dayjs/locale/pl";
+import { useNavigation } from "@react-navigation/native";
+import { min } from "lodash";
 
 export default function VisitDetails() {
-  const { time, date, patientId } = useContext(VisitContext)
-  const [patientData, setPatientData] = useState()
-  const navigation = useNavigation()
+  const { time, date, patientId } = useContext(VisitContext);
+  const [patientData, setPatientData] = useState();
+  const navigation = useNavigation();
 
   const loadPatient = async () => {
     try {
-      const response = await fetch(`${Proxy}/api/patients/${patientId}`)
-      const data = await response.json()
+      const response = await fetch(`${Proxy}/api/patients/${patientId}`);
+      const data = await response.json();
       const patient = {
         patientId: data?._id,
         firstName: data?.firstName,
@@ -25,18 +25,18 @@ export default function VisitDetails() {
         appointmentLabel: data?.appointmentType.label,
         appointmentPrice: data?.appointmentType.price,
         doctor: data?.doctor,
-      }
-      setPatientData(patient)
+      };
+      setPatientData(patient);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
 
   const handleBookButton = async () => {
     try {
-      const split = time.split(":")
-      const hours = parseInt(split[0])
-      const minutes = parseInt(split[1])
+      const split = time.split(":");
+      const hours = parseInt(split[0]);
+      const minutes = parseInt(split[1]);
 
       await fetch(`${Proxy}/api/appointments`, {
         method: "POST",
@@ -53,21 +53,21 @@ export default function VisitDetails() {
             .add(hours + 1, "hours")
             .add(minutes, "minutes"),
         }),
-      })
+      });
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-    navigation.navigate("Moje wizyty")
-  }
+    navigation.navigate("Moje wizyty");
+  };
 
   useEffect(() => {
-    loadPatient()
-  }, [])
+    loadPatient();
+  }, []);
 
-  var customParseFormat = require("dayjs/plugin/customParseFormat")
-  require("dayjs/locale/pl")
-  dayjs.extend(customParseFormat)
-  const formatedDate = dayjs(date, "YYYY-MM-DD", pl).format("dddd, DD MMMM")
+  var customParseFormat = require("dayjs/plugin/customParseFormat");
+  require("dayjs/locale/pl");
+  dayjs.extend(customParseFormat);
+  const formatedDate = dayjs(date, "YYYY-MM-DD", pl).format("dddd, DD MMMM");
 
   return (
     <SafeAreaView>
@@ -91,14 +91,17 @@ export default function VisitDetails() {
           <Text style={styles.mainText}>50 zł</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.bookButton} onPress={() => handleBookButton()}>
+      <TouchableOpacity
+        style={styles.bookButton}
+        onPress={() => handleBookButton()}
+      >
         <Text style={styles.bookButtonText}>Rezerwuj</Text>
       </TouchableOpacity>
     </SafeAreaView>
-  )
+  );
 }
 
-const themeColor = "#5856D6"
+const themeColor = "#5856D6";
 
 const styles = StyleSheet.create({
   details: {
@@ -149,4 +152,4 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "white",
   },
-})
+});

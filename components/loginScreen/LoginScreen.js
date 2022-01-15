@@ -1,25 +1,34 @@
-import React, { useState, useContext, useEffect } from "react"
-import { StyleSheet, Text, View, Button, SafeAreaView, Switch } from "react-native"
-import { createStackNavigator } from "@react-navigation/stack"
-import { TouchableOpacity } from "react-native-gesture-handler"
-import { useNavigation } from "@react-navigation/native"
-import Login from "./Login"
-import Register from "./Register"
-import LoginMenu from "./LoginMenu"
+import React, { useState, useContext, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  SafeAreaView,
+  Switch,
+} from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
+import Login from "./Login";
+import Register from "./Register";
+import LoginMenu from "./LoginMenu";
+import OfficeId from "./OfficeId";
+import { NavigationContainer } from "@react-navigation/native";
 
 function MakeLoginMenu({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <LoginMenu navigation={navigation} />
     </View>
-  )
+  );
 }
 function MakeLogin({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Login />
     </View>
-  )
+  );
 }
 
 function MakeRegister({ navigation }) {
@@ -27,29 +36,48 @@ function MakeRegister({ navigation }) {
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Register />
     </View>
-  )
+  );
 }
 
-const Stack = createStackNavigator()
+function MakeOfficeId({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <OfficeId />
+    </View>
+  );
+}
+
+const Stack2 = createStackNavigator();
 
 export default function LoginScreen() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true }}>
-      <Stack.Screen name="LoginMenu" component={MakeLoginMenu} options={{ headerShown: false }} />
-      <Stack.Screen
-        name="Login"
-        component={MakeLogin}
-        options={{ headerShown: true, title: "Zaloguj się" }}
-      />
-      <Stack.Screen
-        name="Register"
-        component={MakeRegister}
-        options={{ headerShown: true, title: "Rejestracja" }}
-      />
-    </Stack.Navigator>
-  )
+    <NavigationContainer>
+      <Stack2.Navigator screenOptions={{ headerShown: true }}>
+        <Stack2.Screen
+          name="LoginMenu"
+          component={MakeLoginMenu}
+          options={{ headerShown: false, title: "" }}
+        />
+        <Stack2.Screen
+          name="Login"
+          component={MakeLogin}
+          options={{ headerShown: true, title: "" }}
+        />
+        <Stack2.Screen
+          name="Register"
+          component={MakeRegister}
+          options={{ headerShown: true, title: "" }}
+        />
+        <Stack2.Screen
+          name="OfficeId"
+          component={MakeOfficeId}
+          options={{ headerShown: true, title: "" }}
+        />
+      </Stack2.Navigator>
+    </NavigationContainer>
+  );
 }
 
-const themeColor = "#5856D6"
+const themeColor = "#5856D6";
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

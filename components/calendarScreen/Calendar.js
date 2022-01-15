@@ -1,18 +1,25 @@
-import _ from "lodash"
-import React, { Component } from "react"
-import { Platform, StyleSheet, View, Text, TouchableOpacity, Button } from "react-native"
-import { ExpandableCalendar, CalendarProvider } from "react-native-calendars"
-import moment from "moment"
-import AvailableHours from "./AvailableHours"
-import { NavigationContainer } from "@react-navigation/native"
-import { createStackNavigator } from "@react-navigation/stack"
-import { LocaleConfig } from "react-native-calendars"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { VisitContext } from "../../contexts/VisitContext"
-import { Proxy } from "../../consts/Proxy"
-import dayjs from "dayjs"
-require("dayjs/locale/pl")
-dayjs.locale("pl")
+import _ from "lodash";
+import React, { Component } from "react";
+import {
+  Platform,
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Button,
+} from "react-native";
+import { ExpandableCalendar, CalendarProvider } from "react-native-calendars";
+import moment from "moment";
+import AvailableHours from "./AvailableHours";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { LocaleConfig } from "react-native-calendars";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { VisitContext } from "../../contexts/VisitContext";
+import { Proxy } from "../../consts/Proxy";
+import dayjs from "dayjs";
+require("dayjs/locale/pl");
+dayjs.locale("pl");
 
 LocaleConfig.locales["pl"] = {
   monthNames: [
@@ -43,44 +50,52 @@ LocaleConfig.locales["pl"] = {
     "Lis",
     "Gr",
   ],
-  dayNames: ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"],
+  dayNames: [
+    "Poniedziałek",
+    "Wtorek",
+    "Środa",
+    "Czwartek",
+    "Piątek",
+    "Sobota",
+    "Niedziela",
+  ],
   dayNamesShort: ["Pon.", "Wt.", "Śr.", "Czw.", "Pt.", "Sob.", "Niedz."],
   today: "Dzisiaj",
-}
-LocaleConfig.defaultLocale = "pl"
+};
+LocaleConfig.defaultLocale = "pl";
 
 export default class TimelineCalendarScreen extends Component {
   state = {
     currentDate: dayjs().format("YYYY-MM-DD"),
-  }
+  };
 
-  static contextType = VisitContext
+  static contextType = VisitContext;
 
   onDateChanged = (date) => {
-    const { setDate } = this.context
-    setDate(date)
-    this.setState({ currentDate: date })
-    this.loadAppointments(date)
-  }
+    const { setDate } = this.context;
+    setDate(date);
+    this.setState({ currentDate: date });
+    this.loadAppointments(date);
+  };
 
   loadAppointments = async (date) => {
-    const { setAppointments } = this.context
+    const { setAppointments } = this.context;
     try {
-      const response = await fetch(`${Proxy}/api/appointments?date=${date}`)
-      const data = await response.json()
-      // console.log(data)
-      setAppointments(data)
+      const response = await fetch(`${Proxy}/api/appointments?date=${date}`);
+      const data = await response.json();
+      console.log(data);
+      setAppointments(data);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
 
   getTheme = () => {
-    const themeColor = "#5856D6"
-    const lightThemeColor = "#e6efff"
-    const disabledColor = "#a6acb1"
-    const black = "#20303c"
-    const white = "#ffffff"
+    const themeColor = "#5856D6";
+    const lightThemeColor = "#e6efff";
+    const disabledColor = "#a6acb1";
+    const black = "#20303c";
+    const white = "#ffffff";
 
     return {
       // arrows
@@ -115,8 +130,8 @@ export default class TimelineCalendarScreen extends Component {
       selectedDotColor: white,
       disabledDotColor: disabledColor,
       dotStyle: { marginTop: -2 },
-    }
-  }
+    };
+  };
 
   render() {
     return (
@@ -155,11 +170,11 @@ export default class TimelineCalendarScreen extends Component {
           <AvailableHours />
         </CalendarProvider>
       </SafeAreaView>
-    )
+    );
   }
 }
 
-const themeColor = "#5856D6"
+const themeColor = "#5856D6";
 
 const styles = StyleSheet.create({
   calendar: {
@@ -186,4 +201,4 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-})
+});

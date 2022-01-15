@@ -1,16 +1,25 @@
-import React, { useState, useEffect, useContext } from "react"
-import { StyleSheet, Text, View, Button, Image, SafeAreaView, TouchableOpacity } from "react-native"
-import { Ionicons } from "@expo/vector-icons"
-import { Proxy } from "../../consts/Proxy"
-import { VisitContext } from "../../contexts/VisitContext"
+import React, { useState, useEffect, useContext } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Image,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { Proxy } from "../../consts/Proxy";
+import { VisitContext } from "../../contexts/VisitContext";
 
 export default function Patient() {
-  const { patientId, setPatientId, isLogged, setIsLogged } = useContext(VisitContext)
-  const [patientData, setPatientData] = useState()
+  const { patientId, setPatientId, isLogged, setIsLogged } =
+    useContext(VisitContext);
+  const [patientData, setPatientData] = useState();
 
   const loadPatient = async () => {
-    const response = await fetch(`${Proxy}/api/patients/${patientId}`)
-    const data = await response.json()
+    const response = await fetch(`${Proxy}/api/patients/${patientId}`);
+    const data = await response.json();
     const patient = {
       id: data._id,
       firstName: data.firstName,
@@ -18,20 +27,20 @@ export default function Patient() {
       email: data.email,
       phoneNumber: data.phoneNumber,
       address: data.address,
-    }
-    setPatientData(patient)
-  }
+    };
+    setPatientData(patient);
+  };
 
   useEffect(() => {
-    loadPatient()
-  }, [])
+    loadPatient();
+  }, []);
 
   return (
     <SafeAreaView style={styles.safeView}>
       <View style={styles.mainContainer}>
         <View style={styles.profileContainer}>
           <Image
-            source={require("../../pictures/profilePicture.jpg")}
+            source={require("../../pictures/profilePicture.png")}
             style={styles.profilePicture}
           ></Image>
           <View style={styles.profileNameContainer}>
@@ -45,7 +54,9 @@ export default function Patient() {
           <Text style={styles.infoText}>
             {patientData ? patientData.email : "helen.dunphy@gmail.com"}
           </Text>
-          <Text style={styles.infoText}>{patientData ? patientData.phoneNumber : "123456789"}</Text>
+          <Text style={styles.infoText}>
+            {patientData ? patientData.phoneNumber : "123456789"}
+          </Text>
         </View>
         <TouchableOpacity style={styles.stripsContainer}>
           <Ionicons style={styles.stripsImage} name="ios-wallet" />
@@ -59,16 +70,19 @@ export default function Patient() {
           <Ionicons style={styles.stripsImage} name="ios-settings" />
           <Text style={styles.stripsText}>Ustawienia</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.stripsContainer} onPress={() => setIsLogged(false)}>
+        <TouchableOpacity
+          style={styles.stripsContainer}
+          onPress={() => setIsLogged(false)}
+        >
           <Ionicons style={styles.stripsImage} name="ios-log-out" />
           <Text style={styles.stripsText}>Wyloguj się</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
-  )
+  );
 }
 
-const themeColor = "#5856D6"
+const themeColor = "#5856D6";
 
 const styles = StyleSheet.create({
   safeView: {},
@@ -118,4 +132,4 @@ const styles = StyleSheet.create({
     marginRight: 10,
     fontSize: 22,
   },
-})
+});
