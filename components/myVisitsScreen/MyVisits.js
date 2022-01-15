@@ -29,8 +29,9 @@ export default function MyVisits() {
   const [appointments, setAppointments] = useState();
   const loadAppointments = async () => {
     try {
+      const now = dayjs().format("YYYY-MM-DD");
       const response = await fetch(
-        `${Proxy}/api/appointments?date=${date}&&patient=${patientId}&&time=before`
+        `${Proxy}/api/appointments?date=${now}&&patient=${patientId}&&time=before`
       );
       const data = await response.json();
       const appointments = data.map((appointment) => ({
@@ -40,7 +41,6 @@ export default function MyVisits() {
         startDate: dayjs(appointment?.startDate).format("dddd, DD MMMM YYYY"),
         startHour: dayjs(appointment?.startDate).format("HH:mm"),
       }));
-      console.log("appointments", appointments);
       setAppointments(appointments);
     } catch (e) {
       console.log(e);
