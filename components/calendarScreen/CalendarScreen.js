@@ -1,16 +1,16 @@
-import React from "react"
-import { StyleSheet, Text, View, Button } from "react-native"
-import { createStackNavigator } from "@react-navigation/stack"
-import Calendar from "./Calendar"
-import VisitDetails from "./VisitDetails"
-import VisitContextProvider from "../../contexts/VisitContext"
+import React from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Calendar from "./Calendar";
+import VisitDetails from "./VisitDetails";
+import VisitContextProvider from "../../contexts/VisitContext";
 
 function MakeCalendar({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Calendar navigation={navigation} />
     </View>
-  )
+  );
 }
 
 function MakeVisitDetails({ navigation }) {
@@ -18,10 +18,10 @@ function MakeVisitDetails({ navigation }) {
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <VisitDetails />
     </View>
-  )
+  );
 }
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator();
 
 export default function CalendarScreen() {
   return (
@@ -31,7 +31,11 @@ export default function CalendarScreen() {
         component={MakeCalendar}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="VisitDetails" component={MakeVisitDetails} />
+      <Stack.Screen
+        name="VisitDetails"
+        component={MakeVisitDetails}
+        options={{ title: "" }}
+      />
     </Stack.Navigator>
-  )
+  );
 }

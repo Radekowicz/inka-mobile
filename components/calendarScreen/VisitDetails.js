@@ -6,7 +6,6 @@ import { Proxy } from "../../consts/Proxy";
 import dayjs from "dayjs";
 import pl from "dayjs/locale/pl";
 import { useNavigation } from "@react-navigation/native";
-import { min } from "lodash";
 
 export default function VisitDetails() {
   const { time, date, patientId } = useContext(VisitContext);
@@ -24,6 +23,7 @@ export default function VisitDetails() {
         appointmentType: data?.appointmentType._id,
         appointmentLabel: data?.appointmentType.label,
         appointmentPrice: data?.appointmentType.price,
+        appointmentDuration: data?.appointmentType.duration,
         doctor: data?.doctor,
       };
       setPatientData(patient);
@@ -50,14 +50,14 @@ export default function VisitDetails() {
           doctor: patientData.doctor,
           startDate: dayjs(date).add(hours, "hours").add(minutes, "minutes"),
           endDate: dayjs(date)
-            .add(hours + 1, "hours")
-            .add(minutes, "minutes"),
+            .add(hours, "hours")
+            .add(minutes + patientData?.appointmentDuration, "minutes"),
         }),
       });
+      navigation.navigate("Moje wizyty");
     } catch (e) {
       console.log(e);
     }
-    navigation.navigate("Moje wizyty");
   };
 
   useEffect(() => {
@@ -85,10 +85,6 @@ export default function VisitDetails() {
         <View styles={styles.detail}>
           <Text style={styles.topText}>Cena za wizytę</Text>
           <Text style={styles.mainText}>{patientData?.appointmentPrice}zł</Text>
-        </View>
-        <View styles={styles.detail}>
-          <Text style={styles.topText}>Zaliczka</Text>
-          <Text style={styles.mainText}>50 zł</Text>
         </View>
       </View>
       <TouchableOpacity

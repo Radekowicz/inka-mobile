@@ -83,7 +83,6 @@ export default class TimelineCalendarScreen extends Component {
     try {
       const response = await fetch(`${Proxy}/api/appointments?date=${date}`);
       const data = await response.json();
-      // console.log(data);
       setAppointments(data);
     } catch (e) {
       console.log(e);
