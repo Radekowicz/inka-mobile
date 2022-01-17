@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,12 +8,9 @@ import {
   Dimensions,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { VisitContext } from "../../contexts/VisitContext";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Register() {
-  const { isLogged, setIsLogged } = useContext(VisitContext);
-
   const [firstName, onChangeFirstName] = useState();
   const [lastName, onChangeLastName] = useState();
   const [email, onChangeEmail] = useState();
@@ -28,7 +25,7 @@ export default function Register() {
       email,
       password,
     };
-    navigation.navigate("OfficeId", {
+    navigation.navigate("MoreData", {
       newPatient,
     });
   };
@@ -41,6 +38,7 @@ export default function Register() {
           style={styles.input}
           onChangeText={onChangeFirstName}
           value={firstName}
+          autoCapitalize={false}
         />
       </View>
       <View style={styles.inputContainer}>
@@ -49,9 +47,9 @@ export default function Register() {
           style={styles.input}
           onChangeText={onChangeLastName}
           value={lastName}
+          autoCapitalize={false}
         />
       </View>
-
       <View style={styles.inputContainer}>
         <Text style={styles.text}>Email</Text>
         <TextInput
@@ -59,6 +57,7 @@ export default function Register() {
           onChangeText={onChangeEmail}
           value={email}
           autoCompleteType="email"
+          autoCapitalize={false}
         />
       </View>
       <View style={styles.inputContainer}>
@@ -69,16 +68,16 @@ export default function Register() {
           value={password}
           autoCompleteType="password"
           secureTextEntry={true}
+          autoCapitalize={false}
         />
       </View>
-
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
           handleRegisterPress();
         }}
       >
-        <Text style={{ color: "white", fontSize: 18 }}>Zarejestruj się</Text>
+        <Text style={{ color: "white", fontSize: 18 }}>Dalej</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

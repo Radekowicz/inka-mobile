@@ -8,12 +8,11 @@ import {
   Switch,
 } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
 import Login from "./Login";
 import Register from "./Register";
 import LoginMenu from "./LoginMenu";
 import OfficeId from "./OfficeId";
+import MoreData from "./MoreData";
 import { NavigationContainer } from "@react-navigation/native";
 
 function MakeLoginMenu({ navigation }) {
@@ -47,6 +46,14 @@ function MakeOfficeId({ navigation }) {
   );
 }
 
+function MakeMoreData({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <MoreData />
+    </View>
+  );
+}
+
 const Stack2 = createStackNavigator();
 
 export default function LoginScreen() {
@@ -66,6 +73,11 @@ export default function LoginScreen() {
         <Stack2.Screen
           name="Register"
           component={MakeRegister}
+          options={{ headerShown: true, title: "" }}
+        />
+        <Stack2.Screen
+          name="MoreData"
+          component={MakeMoreData}
           options={{ headerShown: true, title: "" }}
         />
         <Stack2.Screen

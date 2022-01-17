@@ -55,6 +55,7 @@ export default function Login() {
           onChangeText={onChangeEmail}
           value={email}
           autoCompleteType="email"
+          autoCapitalize={false}
         />
       </View>
       <View style={styles.inputContainer}>
@@ -65,6 +66,7 @@ export default function Login() {
           value={password}
           autoCompleteType="password"
           secureTextEntry={true}
+          autoCapitalize={false}
         />
       </View>
       <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
