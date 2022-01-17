@@ -78,7 +78,6 @@ export default function NextVisit() {
           "Content-Type": "application/json",
         },
       });
-      // console.log("DELETE", response);
     } catch (error) {
       console.log(error);
     } finally {
@@ -163,7 +162,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginHorizontal: 10,
-    marginTop: 10,
+    marginTop: 20,
   },
   buttonText: {
     textAlign: "center",
