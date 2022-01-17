@@ -17,7 +17,7 @@
     "dayjs": "^1.9.6",
     "expo": "~39.0.2",
     "expo-status-bar": "~1.0.2",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "node-fetch": "^2.6.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
