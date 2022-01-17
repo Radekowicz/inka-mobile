@@ -1,16 +1,16 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Button,
   Image,
   SafeAreaView,
+  TouchableOpacity,
 } from "react-native";
 import { VisitContext } from "../../contexts/VisitContext";
 import { Proxy } from "../../consts/Proxy";
 import dayjs from "dayjs";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 
 require("dayjs/locale/pl");
@@ -27,14 +27,20 @@ function Visit(props) {
       <Text style={styles.mainText}>{props.startDate}</Text>
       <Text style={styles.mainText}>{props.startHour}</Text>
       <Text style={styles.mainText}>{props.price} zł</Text>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={async () => await props.onPress(props.appointmentId)}
+      >
+        <Text style={styles.buttonText}>Odwołaj wizytę</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 export default function NextVisit() {
   const { patientId, date } = useContext(VisitContext);
-  const [appointments, setAppointments] = useState();
-  const [patientData, setPatientData] = useState();
+  const [appointments, setAppointments] = useState([]);
   const navigation = useNavigation();
 
   const loadAppointments = async () => {
@@ -44,23 +50,41 @@ export default function NextVisit() {
         `${Proxy}/api/appointments?date=${now}&&patient=${patientId}&&time=after`
       );
       const data = await response.json();
-      const appointments = data.map((appointment) => ({
+      const newAppointments = data.map((appointment) => ({
         id: appointment?._id,
         label: appointment?.type.label,
         price: appointment?.type.price,
         startDate: dayjs(appointment?.startDate).format("dddd, DD MMMM YYYY"),
         startHour: dayjs(appointment?.startDate).format("HH:mm"),
       }));
-      console.log("next appointments", appointments);
-      setAppointments(appointments);
+      console.log("next appointments", newAppointments);
+      setAppointments(newAppointments);
     } catch (e) {
       console.log(e);
     }
   };
+  useFocusEffect(
+    useCallback(() => {
+      loadAppointments();
+    }, [navigation])
+  );
 
-  useEffect(() => {
-    loadAppointments();
-  }, []);
+  const onPress = async (appointmentId) => {
+    try {
+      await fetch(`${Proxy}/api/appointments/${appointmentId}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      // console.log("DELETE", response);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      await loadAppointments();
+    }
+  };
 
   return (
     <SafeAreaView>
@@ -73,6 +97,8 @@ export default function NextVisit() {
             startDate={appointment.startDate}
             startHour={appointment.startHour}
             price={appointment.price}
+            onPress={onPress}
+            appointmentId={appointment.id}
           />
         ))}
       </ScrollView>
@@ -93,7 +119,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: undefined,
+    height: "auto",
     aspectRatio: 2,
     borderRadius: 20,
   },
@@ -129,5 +155,20 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 20,
     marginLeft: 30,
+  },
+  button: {
+    backgroundColor: themeColor,
+    borderRadius: 10,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 10,
+    marginTop: 10,
+  },
+  buttonText: {
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "500",
+    color: "white",
   },
 });

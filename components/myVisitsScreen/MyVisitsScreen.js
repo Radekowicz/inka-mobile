@@ -12,7 +12,6 @@ import NextVisit from "./NextVisit";
 import MyVisits from "./MyVisits";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import { min } from "lodash";
 
 function MakeMyVisits({ navigation }) {
   return (
@@ -30,7 +29,7 @@ function MakeNextVisit({ navigation }) {
   );
 }
 
-const Stack = createStackNavigator();
+const Stack3 = createStackNavigator();
 
 export default function MyVisitsScreen() {
   const navigation = useNavigation();
@@ -61,18 +60,18 @@ export default function MyVisitsScreen() {
         </TouchableOpacity>
       </View>
 
-      <Stack.Navigator screenOptions={{ headerShown: true }}>
-        <Stack.Screen
+      <Stack3.Navigator screenOptions={{ headerShown: true }}>
+        <Stack3.Screen
           name="NextVisit"
           component={MakeNextVisit}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        <Stack3.Screen
           name="MyVisits"
           component={MakeMyVisits}
           options={{ headerShown: false }}
         />
-      </Stack.Navigator>
+      </Stack3.Navigator>
     </SafeAreaView>
   );
 }

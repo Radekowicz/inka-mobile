@@ -54,9 +54,10 @@ export default function VisitDetails() {
             .add(minutes + patientData?.appointmentDuration, "minutes"),
         }),
       });
-      navigation.navigate("Moje wizyty");
     } catch (e) {
       console.log(e);
+    } finally {
+      navigation.navigate("NextVisit");
     }
   };
 
