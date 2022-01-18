@@ -48,17 +48,11 @@ export default function Patient() {
   return (
     <SafeAreaView style={styles.safeView}>
       <View style={styles.mainContainer}>
-        <View style={styles.profileContainer}>
-          <Image
-            source={require("../../pictures/profilePicture.png")}
-            style={styles.profilePicture}
-          ></Image>
-          <View style={styles.profileNameContainer}>
-            <Text style={styles.profileName}>
-              {patientData?.firstName || "Helen"}{" "}
-              {patientData?.lastName || "Dunphy"}
-            </Text>
-          </View>
+        <View style={styles.profileNameContainer}>
+          <Text style={styles.profileName}>
+            {patientData?.firstName || "Helen"}{" "}
+            {patientData?.lastName || "Dunphy"}
+          </Text>
         </View>
         <View style={styles.infoContainer}>
           <Text style={styles.infoText}>
@@ -119,7 +113,8 @@ const styles = StyleSheet.create({
   },
   profileNameContainer: {
     justifyContent: "center",
-    marginLeft: 10,
+    marginTop: 50,
+    marginBottom: 10,
   },
   profileName: {
     textAlignVertical: "center",
