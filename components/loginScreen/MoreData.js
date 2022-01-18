@@ -6,7 +6,6 @@ import {
   SafeAreaView,
   TextInput,
   Dimensions,
-  Button,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";

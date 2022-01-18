@@ -1,12 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  SafeAreaView,
-  Switch,
-} from "react-native";
+import React from "react";
+import { StyleSheet, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Login from "./Login";
 import Register from "./Register";
@@ -22,7 +15,7 @@ function MakeLoginMenu({ navigation }) {
     </View>
   );
 }
-function MakeLogin({ navigation }) {
+function MakeLogin() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Login />
@@ -30,7 +23,7 @@ function MakeLogin({ navigation }) {
   );
 }
 
-function MakeRegister({ navigation }) {
+function MakeRegister() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Register />
@@ -38,7 +31,7 @@ function MakeRegister({ navigation }) {
   );
 }
 
-function MakeOfficeId({ navigation }) {
+function MakeOfficeId() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <OfficeId />
@@ -46,7 +39,7 @@ function MakeOfficeId({ navigation }) {
   );
 }
 
-function MakeMoreData({ navigation }) {
+function MakeMoreData() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <MoreData />
@@ -89,7 +82,3 @@ export default function LoginScreen() {
     </NavigationContainer>
   );
 }
-
-const themeColor = "#1AAEB0";
-
-const styles = StyleSheet.create({});

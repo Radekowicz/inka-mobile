@@ -38,7 +38,7 @@ export default function Register() {
           style={styles.input}
           onChangeText={onChangeFirstName}
           value={firstName}
-          autoCapitalize={false}
+          autoCapitalize="none"
         />
       </View>
       <View style={styles.inputContainer}>
@@ -47,7 +47,7 @@ export default function Register() {
           style={styles.input}
           onChangeText={onChangeLastName}
           value={lastName}
-          autoCapitalize={false}
+          autoCapitalize="none"
         />
       </View>
       <View style={styles.inputContainer}>
@@ -57,7 +57,7 @@ export default function Register() {
           onChangeText={onChangeEmail}
           value={email}
           autoCompleteType="email"
-          autoCapitalize={false}
+          autoCapitalize="none"
         />
       </View>
       <View style={styles.inputContainer}>
@@ -68,7 +68,7 @@ export default function Register() {
           value={password}
           autoCompleteType="password"
           secureTextEntry={true}
-          autoCapitalize={false}
+          autoCapitalize="none"
         />
       </View>
       <TouchableOpacity

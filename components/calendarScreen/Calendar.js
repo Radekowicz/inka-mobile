@@ -6,13 +6,9 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Button,
 } from "react-native";
 import { ExpandableCalendar, CalendarProvider } from "react-native-calendars";
-import moment from "moment";
 import AvailableHours from "./AvailableHours";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import { LocaleConfig } from "react-native-calendars";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { VisitContext } from "../../contexts/VisitContext";
@@ -136,26 +132,17 @@ export default class TimelineCalendarScreen extends Component {
     return (
       <SafeAreaView>
         <CalendarProvider
-          // date={ITEMS[0].title}
           date={this.state.currentDate}
           onDateChanged={this.onDateChanged}
           theme={{ todayButtonTextColor: "#0059ff" }}
-          //showTodayButton
           disabledOpacity={0.6}
-          //todayBottomMargin={16}
         >
           <ExpandableCalendar
-            // horizontal={false}
-            // hideArrows
             disablePan
             hideKnob
             initialPosition={ExpandableCalendar.positions.OPEN}
-            // markedDates={this.getMarkedDates()} // {'2019-06-01': {marked: true}, '2019-06-02': {marked: true}, '2019-06-03': {marked: true}};
-            // markedDates={() => {}} // {'2019-06-01': {marked: true}, '2019-06-02': {marked: true}, '2019-06-03': {marked: true}};
             theme={this.getTheme()}
             calendarStyle={styles.calendar}
-            // headerStyle={styles.calendar} // for horizontal only
-            // disableWeekScroll
           />
           <View style={styles.textContainer}>
             <Text style={styles.text}>Dostępne godziny</Text>

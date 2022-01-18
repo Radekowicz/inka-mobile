@@ -1,9 +1,8 @@
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Calendar from "./Calendar";
 import VisitDetails from "./VisitDetails";
-import VisitContextProvider from "../../contexts/VisitContext";
 
 function MakeCalendar({ navigation }) {
   return (

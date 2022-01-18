@@ -1,17 +1,7 @@
-import React, { useState, useContext, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  SafeAreaView,
-  Switch,
-} from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import Login from "./Login";
-import Register from "./Register";
 
 export default function LoginMenu(props) {
   const navigation = useNavigation();

@@ -1,12 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Image,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import { VisitContext } from "../../contexts/VisitContext";
 import { Proxy } from "../../consts/Proxy";
 import dayjs from "dayjs";
@@ -25,7 +18,7 @@ function Visit(props) {
   );
 }
 export default function MyVisits() {
-  const { patientId, setPatientId, date } = useContext(VisitContext);
+  const { patientId } = useContext(VisitContext);
   const [appointments, setAppointments] = useState();
   const loadAppointments = async () => {
     try {
@@ -69,10 +62,7 @@ export default function MyVisits() {
   );
 }
 
-const themeColor = "#1AAEB0";
-
 const styles = StyleSheet.create({
-  container: {},
   visit: {
     backgroundColor: "#fff",
     paddingBottom: 15,

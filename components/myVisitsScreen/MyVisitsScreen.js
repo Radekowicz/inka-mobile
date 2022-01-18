@@ -1,19 +1,12 @@
-import React, { useState, useContext, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  SafeAreaView,
-  Switch,
-} from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import NextVisit from "./NextVisit";
 import MyVisits from "./MyVisits";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 
-function MakeMyVisits({ navigation }) {
+function MakeMyVisits() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <MyVisits />
@@ -21,7 +14,7 @@ function MakeMyVisits({ navigation }) {
   );
 }
 
-function MakeNextVisit({ navigation }) {
+function MakeNextVisit() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <NextVisit />
@@ -75,8 +68,6 @@ export default function MyVisitsScreen() {
     </SafeAreaView>
   );
 }
-
-const themeColor = "#1AAEB0";
 
 const styles = StyleSheet.create({
   toggleContainer: {

@@ -3,14 +3,11 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   TouchableOpacity,
-  TouchableHighlight,
   FlatList,
   Dimensions,
 } from "react-native";
 import { VisitContext } from "../../contexts/VisitContext";
-import { Proxy } from "../../consts/Proxy";
 import dayjs from "dayjs";
 var isSameOrAfter = require("dayjs/plugin/isSameOrAfter");
 require("dayjs/locale/pl");
@@ -132,8 +129,6 @@ const styles = StyleSheet.create({
     borderRadius: 90,
     borderColor: themeColor,
     borderWidth: 2,
-
-    //height: Dimensions.get('window').width / numColumns, // approximate a square
   },
   markedItem: {
     backgroundColor: themeColor,

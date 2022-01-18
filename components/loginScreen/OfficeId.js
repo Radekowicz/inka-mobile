@@ -1,13 +1,5 @@
-import React, { useState, useContext } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  TextInput,
-  Dimensions,
-} from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import React, { useContext } from "react";
+import { StyleSheet, Text, SafeAreaView } from "react-native";
 import { VisitContext } from "../../contexts/VisitContext";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import { Proxy } from "../../consts/Proxy";
