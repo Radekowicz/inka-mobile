@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   Image,
   SafeAreaView,
   TouchableOpacity,
@@ -20,7 +19,6 @@ export default function Patient() {
   const loadPatient = async () => {
     const response = await fetch(`${Proxy}/api/patients/${patientId}`);
     const data = await response.json();
-    console.log("patient data:", data);
     const patient = {
       id: data._id,
       firstName: data.firstName,
@@ -36,11 +34,6 @@ export default function Patient() {
     loadPatient();
   }, []);
 
-  const lol = async () => {
-    const response = await fetch(`${Proxy}/api/patients/isAuthorized`);
-    console.log("isAuthorized:", response.status);
-  };
-
   const logout = async () => {
     const response = await fetch(`${Proxy}/api/patients/logout`, {
       method: "POST",
@@ -50,7 +43,6 @@ export default function Patient() {
       },
       body: JSON.stringify({}),
     });
-    console.log("logout:", response.status);
   };
 
   return (
@@ -84,7 +76,7 @@ export default function Patient() {
           <Ionicons style={styles.stripsImage} name="ios-notifications" />
           <Text style={styles.stripsText}>Powiadomienia</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.stripsContainer} onPress={lol}>
+        <TouchableOpacity style={styles.stripsContainer}>
           <Ionicons style={styles.stripsImage} name="ios-settings" />
           <Text style={styles.stripsText}>Ustawienia</Text>
         </TouchableOpacity>

@@ -57,7 +57,6 @@ export default function NextVisit() {
         startDate: dayjs(appointment?.startDate).format("dddd, DD MMMM YYYY"),
         startHour: dayjs(appointment?.startDate).format("HH:mm"),
       }));
-      console.log("next appointments", newAppointments);
       setAppointments(newAppointments);
     } catch (e) {
       console.log(e);

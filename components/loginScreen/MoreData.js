@@ -66,7 +66,6 @@ export default function MoreData() {
           }}
           onDateChange={(date) => {
             setDate(date);
-            console.log(date);
           }}
         />
       </View>

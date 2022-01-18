@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -31,7 +31,6 @@ export default function Login() {
           password,
         }),
       });
-      console.log("status login", response.status);
       const data = await response.json();
 
       if (response.status === 200) {

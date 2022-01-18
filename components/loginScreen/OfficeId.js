@@ -25,7 +25,6 @@ export default function OfficeId() {
           password: newPatient.password,
         }),
       });
-      console.log("status login", response.status);
       const data = await response.json();
 
       if (response.status === 200) {
@@ -49,7 +48,6 @@ export default function OfficeId() {
         },
         body: JSON.stringify({ patient: newPatient, officeId: code }),
       });
-      console.log("status register", response.status);
 
       if (response.status === 200) {
         await login();
