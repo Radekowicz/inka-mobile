@@ -13,6 +13,7 @@ var isSameOrAfter = require("dayjs/plugin/isSameOrAfter");
 require("dayjs/locale/pl");
 dayjs.locale("pl");
 dayjs.extend(isSameOrAfter);
+import { Proxy } from "../../consts/Proxy";
 
 const formatData = (data, numColumns) => {
   const numberOfFullRows = Math.floor(data.length / numColumns);
@@ -33,10 +34,26 @@ const numColumns = 3;
 
 export default function AvailableHours() {
   const [markedItem, setMarkedItem] = useState();
-  const { setTime, date, appointments, setAppointments } =
-    useContext(VisitContext);
+  const { setTime, date, appointments, patientId } = useContext(VisitContext);
+  console.log(patientId);
 
-  const appointmentLength = 45;
+  const getAppointmentDuration = async () => {
+    try {
+      const response = await fetch(`${Proxy}/api/patients/${patientId}`);
+      const data = await response.json();
+      const duration = parseInt(data?.appointmentType.duration);
+      console.log(duration);
+      setAppointmentLength(duration);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getAppointmentDuration();
+  }, []);
+
+  const [appointmentLength, setAppointmentLength] = useState(45);
   const hourStart = 9;
   const hourEnd = 22;
   const periodMinutes = 15;
